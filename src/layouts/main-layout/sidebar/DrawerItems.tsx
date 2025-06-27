@@ -13,7 +13,7 @@ import IconifyIcon from 'components/base/IconifyIcon';
 import CollapseListItem from './list-items/CollapseListItem';
 import ProfileListItem from './list-items/ProfileListItem';
 import ListItem from './list-items/ListItem';
-import LogoImg from 'assets/images/Logo.png';
+import LogoImg from 'assets/images/dalmuri.png';
 import { topListData, bottomListData, profileListData } from 'data/sidebarListData';
 
 const DrawerItems = () => {
@@ -25,15 +25,15 @@ const DrawerItems = () => {
         px={3.5}
         position={'sticky'}
         top={0}
-        bgcolor="info.darker"
+        bgcolor="background.lighter"
         alignItems="center"
         justifyContent="flex-start"
         zIndex={1000}
       >
         <ButtonBase component={Link} href="/" disableRipple>
-          <Image src={LogoImg} alt="logo" height={24} width={24} sx={{ mr: 1 }} />
+          <Image src={LogoImg} alt="logo" height={50} width={50} sx={{ mr: 1 }} />
           <Typography variant="h5" color="text.primary" fontWeight={600} letterSpacing={1}>
-            Dashdark X
+            달무리 Dalmuri
           </Typography>
         </ButtonBase>
       </Stack>

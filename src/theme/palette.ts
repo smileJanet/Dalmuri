@@ -6,9 +6,10 @@ import {
   blue,
   cyan,
   purple,
+  indigo,
   violate,
   yellow,
-  white,
+  // white,
   transparentRed,
   transparentGreen,
   transparentYellow,
@@ -47,9 +48,23 @@ declare module '@mui/material/styles' {
     darker: string;
     state: string;
   }
+  interface TypeBackground{
+    lighter : string
+    light: string
+    main: string
+    dark: string
+    darker: string
+  }
 }
 
 const palette: PaletteOptions = {
+  background:{
+    lighter: indigo[50],
+    light: indigo[300],
+    main: indigo[500],
+    dark: indigo[700],
+    darker: indigo[800],
+  },
   neutral: {
     lighter: grey[100],
     light: grey[200],
@@ -83,8 +98,8 @@ const palette: PaletteOptions = {
     main: red[500],
   },
   text: {
-    primary: white[500],
-    secondary: grey[300],
+    primary: grey[900],
+    secondary: grey[400],
     disabled: grey[500],
   },
   gradients: {

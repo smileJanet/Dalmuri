@@ -7,14 +7,14 @@ const Footer = () => {
       mt={1}
       px={1}
       pb={{ xs: 1.5, sm: 1, lg: 0 }}
-      color="text.secondary"
-      variant="body2"
+      color="text.first"
+      variant="body1"
       sx={{ textAlign: { xs: 'center', md: 'right' } }}
       letterSpacing={0.5}
     >
       Made with ❤️ by{' '}
-      <Link href="https://themewagon.com/" target="_blank" rel="noreferrer">
-        {'ThemeWagon'}
+      <Link href="https://janudev.tistory.com/" target="_blank" rel="noreferrer">
+        {'Janet'}
       </Link>
     </Typography>
   );

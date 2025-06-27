@@ -59,7 +59,7 @@ const CollapseListItem = ({ subheader, active, items, icon }: MenuItem) => {
                   borderLeft: 4,
                   borderStyle: 'solid',
                   borderColor: route.active ? 'primary.main' : 'transparent !important',
-                  bgcolor: route.active ? 'info.dark' : 'info.darker',
+                  bgcolor: route.active ? 'background.dark' : 'background.darker',
                 }}
               >
                 <ListItemText

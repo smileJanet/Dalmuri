@@ -16,7 +16,7 @@ const CssBaseline: Components<Omit<Theme, 'components'>>['MuiCssBaseline'] = {
     },
     body: {
       fontVariantLigatures: 'none',
-      backgroundColor: theme.palette.info.darker,
+      backgroundColor: theme.palette.background.main,
       ...scrollbar(theme),
     },
     ...simplebar(theme),

@@ -31,7 +31,7 @@ const Sidebar = ({ mobileOpen, setMobileOpen, setIsClosing }: SidebarProps) => {
         onTransitionEnd={handleDrawerTransitionEnd}
         onClose={handleDrawerClose}
         ModalProps={{ keepMounted: true }}
-        sx={{ display: { xs: 'block', lg: 'none' } }}
+        sx={{ display: { xs: 'block', lg: 'none' }, }}
       >
         <DrawerItems />
       </Drawer>
