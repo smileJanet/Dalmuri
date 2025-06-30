@@ -65,6 +65,9 @@ const palette: PaletteOptions = {
     dark: indigo[700],
     darker: indigo[800],
   },
+  action: {
+    hover: purple[300],
+  },
   neutral: {
     lighter: grey[100],
     light: grey[200],
