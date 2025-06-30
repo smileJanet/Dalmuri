@@ -111,18 +111,18 @@ const ProfileMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleProfileMenuClose} sx={{ '&:hover': { bgcolor: 'background.light' } }}>
+        <MenuItem onClick={handleProfileMenuClose} sx={{ '&:hover': { bgcolor: 'background.lighter' } }}>
           <Avatar
             src={AvatarImage}
             sx={{
-              bgcolor: 'primary.main',
+              bgcolor: 'primary.dark',
             }}
           />
           <Stack direction="column">
             <Typography variant="body2" fontWeight={500}>
               John Carter
             </Typography>
-            <Typography variant="caption" fontWeight={400} color="text.secondary">
+            <Typography variant="caption" fontWeight={400} color="neutral.light">
               john@example.com
             </Typography>
           </Stack>

@@ -69,11 +69,11 @@ const palette: PaletteOptions = {
     hover: purple[300],
   },
   neutral: {
-    lighter: grey[100],
-    light: grey[200],
+    lighter: grey[600],
+    light: grey[400],
     main: grey[300],
-    dark: grey[400],
-    darker: grey[600],
+    dark: grey[200],
+    darker: grey[100]
   },
   primary: {
     main: purple[500],
@@ -101,8 +101,8 @@ const palette: PaletteOptions = {
     main: red[500],
   },
   text: {
-    primary: grey[900],
-    secondary: grey[400],
+    primary: grey[800],
+    secondary: grey[600],
     disabled: grey[500],
   },
   gradients: {

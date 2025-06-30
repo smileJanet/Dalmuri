@@ -10,7 +10,7 @@ const ProfileListItem = ({ subheader, path }: MenuItem) => {
   return (
     <ListItemButton component={Link} href={path}>
       <Stack spacing={1} alignItems="center">
-        <Avatar src={AvatarImage} sx={{ height: 36, width: 36, bgcolor: 'primary.main' }} />
+        <Avatar src={AvatarImage} sx={{ height: 36, width: 36, bgcolor: 'primary.dark' }} />
         <Stack direction="column">
           <Typography variant="subtitle2" color="text.primary" letterSpacing={0.5}>
             {subheader}

@@ -32,13 +32,13 @@ const CollapseListItem = ({ subheader, active, items, icon }: MenuItem) => {
           primary={subheader}
           sx={{
             '& .MuiListItemText-primary': {
-              color: active ? 'primary.main' : null,
+              color: active ? 'neutral.light' : null,
             },
           }}
         />
         <IconifyIcon
           icon="iconamoon:arrow-right-2-duotone"
-          color="neutral.dark"
+          color="neutral.main"
           sx={{
             transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
             transition: 'transform 0.2s ease-in-out',
@@ -58,7 +58,7 @@ const CollapseListItem = ({ subheader, active, items, icon }: MenuItem) => {
                   pl: 1.75,
                   borderLeft: 4,
                   borderStyle: 'solid',
-                  borderColor: route.active ? 'primary.main' : 'transparent !important',
+                  borderColor: route.active ? 'primary.dark' : 'transparent !important',
                   bgcolor: route.active ? 'background.dark' : 'background.darker',
                 }}
               >
