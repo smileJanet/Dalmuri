@@ -44,7 +44,7 @@ const DataGrid: Components<Omit<Theme, 'components'>>['MuiDataGrid'] = {
     row: ({ theme }) => ({
       padding: theme.spacing(0, 2),
       '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.background.main,
+        backgroundColor: theme.palette.background.light,
       },
       '&.MuiDataGrid-row--editing': {
         background: theme.palette.background.main,

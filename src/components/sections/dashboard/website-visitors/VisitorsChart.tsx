@@ -53,21 +53,21 @@ const VisitorsChart = ({ chartRef, ...rest }: PolarBarChartProps) => {
               type: 'Direct',
               value: 50,
               itemStyle: {
-                color: theme.palette.secondary.main,
+                color: '#1589e5',
               },
             },
             {
               type: 'Social',
               value: 60,
               itemStyle: {
-                color: theme.palette.secondary.lighter,
+                color: '#60E2EE',
               },
             },
             {
               type: 'Organic',
               value: 80,
               itemStyle: {
-                color: theme.palette.primary.main,
+                color: '#7f4fc4',
               },
             },
           ],
