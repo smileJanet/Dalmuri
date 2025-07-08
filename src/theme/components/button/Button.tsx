@@ -36,9 +36,9 @@ const Button: Components<Omit<Theme, 'components'>>['MuiButton'] = {
         background: `linear-gradient(128.49deg, ${theme.palette.gradients.primary.main} 19.86%, ${theme.palette.gradients.primary.state} 68.34%)`,
       },
     }),
-    containedSecondary: ({ theme }) => ({
-      background: theme.palette.info.dark,
-      '&:hover': { background: theme.palette.info.dark },
+    containedSecondary: ({theme}) => ({
+      background: theme.palette.background.main,
+      '&:hover': { background: theme.palette.background.light },
     }),
     sizeLarge: ({ theme }) => ({
       padding: theme.spacing(1.25, 2.25),

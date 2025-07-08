@@ -15,7 +15,7 @@ const DateSelect = () => {
           '& .MuiInputBase-root': {
             p: 0,
             border: 'none',
-            background: `${theme.palette.info.dark} !important`,
+            background: `${theme.palette.primary.darker} !important`,
           },
           '& .MuiOutlinedInput-root': {
             pr: 0.75,

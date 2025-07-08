@@ -66,7 +66,7 @@ const palette: PaletteOptions = {
     darker: indigo[800],
   },
   action: {
-    hover: purple[300],
+    hover: indigo[400],
   },
   neutral: {
     lighter: grey[600],
@@ -76,15 +76,16 @@ const palette: PaletteOptions = {
     darker: grey[100]
   },
   primary: {
-    main: purple[500],
-    dark: purple[800],
+    main: indigo[400],
+    dark: indigo[300],
+    darker: indigo[200],
   },
   secondary: {
-    lighter: blue[200],
-    light: cyan[400],
-    main: cyan[500],
-    dark: cyan[900],
-    darker: blue[500],
+    lighter: cyan[100],
+    light: cyan[300],
+    main: purple[400],
+    dark: cyan[700],
+    darker: blue[600],
   },
   info: {
     main: blue[700],
@@ -107,7 +108,7 @@ const palette: PaletteOptions = {
   },
   gradients: {
     primary: {
-      main: purple[500],
+      main: indigo[500],
       state: violate[600],
     },
   },
