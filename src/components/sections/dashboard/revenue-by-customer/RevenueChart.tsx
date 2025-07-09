@@ -63,7 +63,7 @@ const RevenueChart = ({ chartRef, data, ...rest }: BarChartProps) => {
         axisLabel: {
           color: theme.palette.text.secondary,
           fontSize: theme.typography.caption.fontSize,
-          fontFamily: fontFamily.monaSans,
+          fontFamily: fontFamily.Main,
           margin: 24,
         },
       },
@@ -72,7 +72,7 @@ const RevenueChart = ({ chartRef, data, ...rest }: BarChartProps) => {
         axisLabel: {
           color: theme.palette.text.secondary,
           fontSize: theme.typography.caption.fontSize,
-          fontFamily: fontFamily.monaSans,
+          fontFamily: fontFamily.Main,
           formatter: (value: number) => {
             if (value === 0) {
               return '0K';

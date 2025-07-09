@@ -13,7 +13,7 @@ const Footer = () => {
       letterSpacing={0.5}
     >
       Made with ❤️ by{' '}
-      <Link href="https://janudev.tistory.com/" target="_blank" rel="noreferrer">
+      <Link href="https://github.com/smileJanet" target="_blank" rel="noreferrer">
         {'Janet'}
       </Link>
     </Typography>

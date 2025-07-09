@@ -39,7 +39,7 @@ const CompletedTaskChart = ({ ...rest }: CompletedTaskChartProps) => {
           margin: 10,
           color: theme.palette.text.secondary,
           fontSize: theme.typography.caption.fontSize,
-          fontFamily: fontFamily.monaSans,
+          fontFamily: fontFamily.Main,
         },
       },
       yAxis: {
@@ -47,7 +47,7 @@ const CompletedTaskChart = ({ ...rest }: CompletedTaskChartProps) => {
         axisLabel: {
           color: theme.palette.text.secondary,
           fontSize: theme.typography.caption.fontSize,
-          fontFamily: fontFamily.monaSans,
+          fontFamily: fontFamily.Main,
         },
         splitLine: {
           show: false,

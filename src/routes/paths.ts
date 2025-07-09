@@ -7,12 +7,11 @@ export const rootPaths = {
 
 export default {
   dashboard: `/${rootPaths.pagesRoot}/dashboard`,
-  features: `/${rootPaths.pagesRoot}/features`,
-  users: `/${rootPaths.pagesRoot}/users`,
-  pricing: `/${rootPaths.pagesRoot}/pricing`,
-  integrations: `/${rootPaths.pagesRoot}/integrations`,
+  journal: `/${rootPaths.pagesRoot}/journal`,
+  community: `/${rootPaths.pagesRoot}/community`,
+  chat: `/${rootPaths.pagesRoot}/chat`,
+  memories: `/${rootPaths.pagesRoot}/memories`,
   settings: `/${rootPaths.pagesRoot}/settings`,
-  templatePages: `/${rootPaths.pagesRoot}/template-pages`,
   accountSettings: `/${rootPaths.pagesRoot}/account-settings`,
 
   login: `/${rootPaths.authRoot}/login`,
@@ -21,3 +20,4 @@ export default {
   comingSoon: `/coming-soon`,
   404: `/${rootPaths.errorRoot}/404`,
 };
+
