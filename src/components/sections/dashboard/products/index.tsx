@@ -26,7 +26,7 @@ const productsData = [
 const Products = () => {
   return (
     <Stack direction="column" gap={3.75} component={Paper} height={300}>
-      <Typography variant="h6" fontWeight={400} fontFamily={fontFamily.workSans}>
+      <Typography variant="h6" fontWeight={400} fontFamily={fontFamily.sub}>
         Products
       </Typography>
 

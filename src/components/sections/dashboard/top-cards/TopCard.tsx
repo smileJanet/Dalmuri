@@ -32,7 +32,7 @@ const TopCard = (props: TopCardProps) => {
         <Stack justifyContent="space-between">
           <Stack alignItems="center" gap={1}>
             <IconifyIcon icon={icon} color="#CDB4DB" fontSize="h5.fontSize" />
-            <Typography variant="subtitle2" color="text.secondary" fontFamily={fontFamily.workSans}>
+            <Typography variant="subtitle2" color="text.secondary" fontFamily={fontFamily.sub}>
               {title}
             </Typography>
           </Stack>

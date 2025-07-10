@@ -34,7 +34,7 @@ const RevenueChartLegend = ({ data, toggleColor, handleLegendToggle }: LegendPro
     <ButtonBase onClick={() => handleLegendToggle(data.type)} disableRipple>
       <Stack spacing={0.5} alignItems="center">
         <Box height={8} width={8} bgcolor={color} borderRadius={1} />
-        <Typography variant="body2" color="text.secondary" fontFamily={fontFamily.workSans}>
+        <Typography variant="body2" color="text.secondary" fontFamily={fontFamily.sub}>
           {data.type}
         </Typography>
       </Stack>

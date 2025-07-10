@@ -22,7 +22,7 @@ const sitemap: MenuItem[] = [
   {
     id: 'dashboard',
     subheader: '대시보드 Dashboard',
-    path: '/',
+    path: '/pages/dashboard',
     icon: 'mingcute:home-1-fill',
     active: true,
   },

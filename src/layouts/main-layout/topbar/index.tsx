@@ -50,13 +50,13 @@ const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
         </ButtonBase>
 
         <Typography
-          variant="h5"
-          fontWeight={600}
+          variant="h4"
+          fontWeight={400}
           letterSpacing={1}
-          fontFamily={fontFamily.workSans}
+          fontFamily={fontFamily.sub}
           display={{ xs: 'none', lg: 'block' }}
         >
-          Analytics
+          환영해요 Welcome!
         </Typography>
       </Stack>
 
