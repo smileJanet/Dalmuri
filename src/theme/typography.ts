@@ -1,12 +1,13 @@
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 
 export const fontFamily = {
-  monaSans: ['Mona Sans', 'sans-serif'].join(','),
-  workSans: ['Work Sans', 'sans-serif'].join(','),
+  Main: ['Ownglyph_corncorn-Rg', 'omyu_pretty'].join(','),
+  sub: ['omyu_pretty', 'omyu_pretty'].join(','),
+  third : ['galmuri11', 'omyu_pretty'].join(','),
 };
 
 const typography: TypographyOptions = {
-  fontFamily: fontFamily.monaSans,
+  fontFamily: fontFamily.Main,
   h1: {
     fontSize: '3rem',
     fontWeight: 700,

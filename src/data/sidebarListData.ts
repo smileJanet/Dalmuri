@@ -3,7 +3,6 @@ import sitemap from 'routes/sitemap';
 export const topListData = sitemap.filter((item) => {
   const id = item.id;
   if (
-    id === 'template-pages' ||
     id === 'settings' ||
     id === 'account-settings' ||
     id === 'authentication'

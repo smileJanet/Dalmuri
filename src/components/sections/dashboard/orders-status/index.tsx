@@ -33,7 +33,7 @@ const OrdersStatus = () => {
           justifyContent="space-between"
           flexGrow={1}
         >
-          <Typography variant="h6" fontWeight={400} fontFamily={fontFamily.workSans}>
+          <Typography variant="h6" fontWeight={400} fontFamily={fontFamily.sub}>
             Orders Status
           </Typography>
           <TextField

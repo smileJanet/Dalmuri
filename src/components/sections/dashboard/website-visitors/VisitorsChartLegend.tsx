@@ -36,12 +36,12 @@ const VisitorsChartLegend = ({ data, toggleColor, handleToggleLegend }: LegendPr
       <ButtonBase onClick={(e) => handleToggleLegend(e, data.type)} disableRipple>
         <Stack spacing={1} alignItems="center">
           <Box height={8} width={8} bgcolor={color} borderRadius={1} />
-          <Typography variant="body1" color="text.secondary" fontFamily={fontFamily.workSans}>
+          <Typography variant="body1" color="text.secondary" fontFamily={fontFamily.sub}>
             {data.type}
           </Typography>
         </Stack>
       </ButtonBase>
-      <Typography variant="body1" color="text.primary" fontFamily={fontFamily.workSans}>
+      <Typography variant="body1" color="text.primary" fontFamily={fontFamily.sub}>
         {data.rate}
       </Typography>
     </Stack>

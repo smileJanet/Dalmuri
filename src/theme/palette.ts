@@ -60,7 +60,7 @@ declare module '@mui/material/styles' {
 const palette: PaletteOptions = {
   background:{
     lighter: indigo[50],
-    light: indigo[300],
+    light: indigo[100],
     main: indigo[500],
     dark: indigo[700],
     darker: indigo[800],

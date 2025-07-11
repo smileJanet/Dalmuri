@@ -5,8 +5,6 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import Image from 'components/base/Image';
 import IconifyIcon from 'components/base/IconifyIcon';
@@ -32,26 +30,11 @@ const DrawerItems = () => {
       >
         <ButtonBase component={Link} href="/" disableRipple>
           <Image src={LogoImg} alt="logo" height={50} width={50} sx={{ mr: 1 }} />
-          <Typography variant="h5" color="text.primary" fontWeight={600} letterSpacing={1}>
+          <Typography variant="h4" color="text.primary" fontWeight={600} letterSpacing={1}>
             달무리 Dalmuri
           </Typography>
         </ButtonBase>
       </Stack>
-
-      <Box px={3.5} pb={3} pt={1}>
-        <TextField
-          variant="filled"
-          placeholder="Search for..."
-          sx={{ width: 1 }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <IconifyIcon icon={'mingcute:search-line'} />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
 
       <List component="nav" sx={{ px: 2.5 }}>
         {topListData.map((route, index) => {

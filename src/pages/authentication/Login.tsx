@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
@@ -13,26 +14,36 @@ import IconifyIcon from 'components/base/IconifyIcon';
 import paths from 'routes/paths';
 
 interface User {
-  [key: string]: string;
+  id:  string
+  password: string
+  name?: string
 }
 
 const Login = () => {
-  const [user, setUser] = useState<User>({ email: '', password: '' });
+  const [user, setUser] = useState<User>({ id: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  // 로그인 검증
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if(user.id === 'admin' && user.password === '1234'){
+      navigate('/pages/dashboard')
+    } else {
+      alert('아이디 혹은 비밀번호가 틀렸습니다.');
+    }
     console.log(user);
   };
 
   return (
     <>
       <Typography align="center" variant="h3" fontWeight={600}>
-        LogIn
+        로그인 LogIn
       </Typography>
       <Stack direction={{ xs: 'column', sm: 'row' }} mt={4} spacing={2} width={1}>
         <Button
@@ -55,14 +66,14 @@ const Login = () => {
       <Divider sx={{ my: 3 }}>or Login with</Divider>
       <Stack onSubmit={handleSubmit} component="form" direction="column" gap={2}>
         <TextField
-          id="email"
-          name="email"
-          type="email"
-          value={user.email}
+          id="id"
+          name="id"
+          type="id"
+          value={user.id}
           onChange={handleInputChange}
           variant="filled"
-          placeholder="Your Email"
-          autoComplete="email"
+          placeholder="아이디"
+          autoComplete="id"
           fullWidth
           autoFocus
           required
@@ -74,7 +85,7 @@ const Login = () => {
           value={user.password}
           onChange={handleInputChange}
           variant="filled"
-          placeholder="Your Password"
+          placeholder="비밀번호"
           autoComplete="current-password"
           fullWidth
           autoFocus
@@ -96,14 +107,14 @@ const Login = () => {
         <Stack mt={-1.5} alignItems="center" justifyContent="space-between">
           <FormControlLabel
             control={<Checkbox id="checkbox" name="checkbox" color="primary" />}
-            label="Remember me"
+            label="Remember me!"
           />
           <Link href="#!" fontSize="body2.fontSize" letterSpacing={0.5}>
             Forgot password?
           </Link>
         </Stack>
         <Button type="submit" variant="contained" size="medium" fullWidth>
-          Submit
+          나를 눌러봐~
         </Button>
         <Typography
           my={3}
@@ -112,8 +123,9 @@ const Login = () => {
           align="center"
           letterSpacing={0.5}
         >
-          Don't have an account? <Link href={paths.signup}>{'Signup'}</Link>
+          계정이 없으신가요? <Link href={paths.signup}>{'Sign up'}</Link>
         </Typography>
+
       </Stack>
     </>
   );

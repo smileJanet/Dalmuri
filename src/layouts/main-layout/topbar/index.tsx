@@ -13,12 +13,13 @@ import LanguageSelect from './LanguageSelect';
 import ProfileMenu from './ProfileMenu';
 
 interface TopbarProps {
+  title: string;
   isClosing: boolean;
   mobileOpen: boolean;
   setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
+const Topbar = ({ title, isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
   const handleDrawerToggle = () => {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
@@ -51,12 +52,12 @@ const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
 
         <Typography
           variant="h5"
-          fontWeight={600}
+          fontWeight={400}
           letterSpacing={1}
-          fontFamily={fontFamily.workSans}
+          fontFamily={fontFamily.third}
           display={{ xs: 'none', lg: 'block' }}
         >
-          Analytics
+          {title}
         </Typography>
       </Stack>
 

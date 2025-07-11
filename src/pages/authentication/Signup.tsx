@@ -30,7 +30,7 @@ const Signup = () => {
   return (
     <>
       <Typography align="center" variant="h3" fontWeight={600}>
-        SignUp
+        가입하기 Sign Up
       </Typography>
       <Stack direction={{ xs: 'column', sm: 'row' }} mt={4} spacing={2} width={1}>
         <Button
@@ -59,7 +59,7 @@ const Signup = () => {
           value={user.name}
           onChange={handleInputChange}
           variant="filled"
-          placeholder="Your Name"
+          placeholder="닉네임"
           autoComplete="name"
           fullWidth
           autoFocus
@@ -72,7 +72,7 @@ const Signup = () => {
           value={user.email}
           onChange={handleInputChange}
           variant="filled"
-          placeholder="Your Email"
+          placeholder="아이디"
           autoComplete="email"
           fullWidth
           autoFocus
@@ -85,7 +85,7 @@ const Signup = () => {
           value={user.password}
           onChange={handleInputChange}
           variant="filled"
-          placeholder="Your Password"
+          placeholder="비밀번호"
           autoComplete="current-password"
           fullWidth
           autoFocus
@@ -105,7 +105,7 @@ const Signup = () => {
           }}
         />
         <Button type="submit" variant="contained" size="medium" fullWidth sx={{ mt: 1.5 }}>
-          Submit
+          가입 하기!
         </Button>
         <Typography
           my={3}
@@ -114,7 +114,7 @@ const Signup = () => {
           align="center"
           letterSpacing={0.5}
         >
-          Already have an account? <Link href={paths.login}>{'Login'}</Link>
+          이미 계정이 있나요? <Link href={paths.login}>{'Login'}</Link>
         </Typography>
       </Stack>
     </>

@@ -16,7 +16,7 @@ const WebsiteVisitors = () => {
     <Paper sx={{ height: 500 }}>
       {/* header */}
       <Stack alignItems="center" justifyContent="space-between" mb={-2}>
-        <Typography variant="h6" fontWeight={400} fontFamily={fontFamily.workSans}>
+        <Typography variant="h6" fontWeight={400} fontFamily={fontFamily.sub}>
           Website Visitors
         </Typography>
         <Button
