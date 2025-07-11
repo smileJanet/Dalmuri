@@ -3,6 +3,7 @@ import { TypographyOptions } from '@mui/material/styles/createTypography';
 export const fontFamily = {
   Main: ['Ownglyph_corncorn-Rg', 'omyu_pretty'].join(','),
   sub: ['omyu_pretty', 'omyu_pretty'].join(','),
+  third : ['galmuri11', 'omyu_pretty'].join(','),
 };
 
 const typography: TypographyOptions = {

@@ -2,7 +2,7 @@ const Journal = () => {
   return(
     <>
       <div>
-        babo
+        journal
       </div>
     </>
   )

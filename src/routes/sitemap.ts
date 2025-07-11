@@ -36,21 +36,21 @@ const sitemap: MenuItem[] = [
   {
     id: 'community',
     subheader: '소통하기 Community', // 익명 질문함, 챌린지(개인, 공통), 비밀 편지
-    path: '#!',
+    path: '/pages/community',
     icon: 'mingcute:user-2-fill',
     active: true,
   },
   {
     id: 'chat',
     subheader: '채팅하기 Chat', // 일반 채팅, 단체 채팅, 비밀 채팅
-    path: '#!',
+    path: '/pages/chat',
     icon: 'mingcute:currency-dollar-2-line',
     active: true,
   },
   {
     id: 'memories',
     subheader: '추억하기 Memories', // 타임라인 회고(오늘부터 1년 전/한달 전 게시글 보여주기), 타임캡슐(특정 날짜 이후에만 열람 가능), 좋아요 아카이브
-    path: '#!',
+    path: '/pages/memories',
     icon: 'mingcute:plugin-2-fill',
     active: true,
   },

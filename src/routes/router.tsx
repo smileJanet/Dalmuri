@@ -4,17 +4,77 @@ import { Outlet, createBrowserRouter } from 'react-router-dom';
 import paths, { rootPaths } from './paths';
 import MainLayout from 'layouts/main-layout';
 import AuthLayout from 'layouts/auth-layout';
+import LoginLayout from 'layouts/login-layout';
 import Splash from 'components/loading/Splash';
 import PageLoader from 'components/loading/PageLoader';
-import LoginLayout from 'layouts/login-layout';
 
 const App = lazy(() => import('App'));
-const Dashboard = lazy(() => import('pages/dashboard'));
+const Dashboard = lazy(() => import('@/pages/dashboard'));
 const Journal = lazy(() => import('@/pages/journal'));
+const Community = lazy(() => import('@/pages/community'));
+const Chat = lazy(() => import('@/pages/chat'))
+const Memories = lazy(() => import('@/pages/memories'));
+
 const Login = lazy(() => import('pages/authentication/Login'));
 const Signup = lazy(() => import('pages/authentication/Signup'));
 
-// 1. children을 써야 하는 상황 : 공통적으로 감싸야 하는 Layout(ex. MainLayout)이 있을 때 children을 사용한다.
+/*
+* [React 컴포넌트의 children]
+* 1. children: 컴포넌트 안에 감싸진 콘텐츠.
+* 2. ⭐ createBrowserRouter의 children과 다르다! ⭐
+*
+* (ex)
+* const myBox = ({children}) => {
+*   return <div>{children}</div>
+* }
+* 위와 같은 컴포넌트를 쓰면
+*
+* <MyBox>
+    <h4> Hello! </h4>
+* </MyBox>
+* MyBox 안에 있는 <h4> Hello! </h4>를 children으로 받는다.
+*
+* ===============================================================
+* [ React Router DOM ]
+*
+* [createBrowserRouter의 children]
+* 1. 위에서 말한 children은 React 컴포넌트고, 이쪽은 'react-router-dom'이다. 완전 다름
+* 2. 부모 라우터 경로 안에 들어가는 '하위 경로들'을 정의하는 "배열"
+* 3. children:[....] 이렇게 작성된다.
+* 
+*    react의 children     |     router의 children   
+* --------------------------------------------------
+*       컴포넌트 안        |        라우터 안
+* 안의 내용을 받아서 보여줌 | 어떤 경로가 어떤 컴포넌트와 연결되는지
+*                               하위경로로 연결해줌
+* 4. children을 써야 하는 상황 : 공통적으로 감싸야 하는 Layout(ex. MainLayout)이 있을 때 children을 사용한다.
+* 5. 단, children을 사용하려면 공통으로 감싸는 Layout에 <Outlet />이 있어야 한다. ➡️ Outlet에서 설명
+*
+* [React의 중첩라우팅]
+* 1. React에선 페이지를 이동할 때 react-router-dom을 사용한다.
+* 2. 중첩 라우팅은 "페이지 안에 또 페이지가 있는 구조"를 만들고 싶을 때 사용하는 방식이다.
+*
+* (ex)
+* <MainLayout>
+    <Profile /> ⬅️ MainLayout이라는 구조 아래 또 Profile이라는 구조가 있다.
+    <Setting /> ⬅️ MainLayout이라는 구조 아래 또 Settings라는 구조가 있다.
+* </MainLayout>
+*
+* [Outlet]
+* 1. "여기에 자식 라우트 내용을 넣어줘"라는 표시. === children과 동일한 의미.
+* 2. 중첩 라우팅의 출력 위치이다.
+*
+* (ex)
+* const MainLayout = () => {
+*   return(
+*     <div>
+        <h1>Main Layout 공통 레이아웃</h1>
+          <Outlet />
+*     </div>
+*   )
+* }
+*
+* */
 
 const router = createBrowserRouter(
   [
@@ -37,10 +97,13 @@ const router = createBrowserRouter(
         },
         {
           path: '/pages',
-          element: <MainLayout />, // ✅ 사이드바가 있는 레이아웃 <- 이렇게!
+          element: <MainLayout />, // ✅ 사이드바가 있는 레이아웃
           children: [
             { path: 'dashboard', element: <Dashboard /> },
             { path: 'journal', element: <Journal /> },
+            { path: 'community', element: <Community /> },
+            { path: 'chat', element: <Chat /> },
+            { path: 'memories', element: <Memories /> },
           ],
         },
         // { // 이렇게 말고

@@ -13,12 +13,13 @@ import LanguageSelect from './LanguageSelect';
 import ProfileMenu from './ProfileMenu';
 
 interface TopbarProps {
+  title: string;
   isClosing: boolean;
   mobileOpen: boolean;
   setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
+const Topbar = ({ title, isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
   const handleDrawerToggle = () => {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
@@ -50,13 +51,13 @@ const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
         </ButtonBase>
 
         <Typography
-          variant="h4"
+          variant="h5"
           fontWeight={400}
           letterSpacing={1}
-          fontFamily={fontFamily.sub}
+          fontFamily={fontFamily.third}
           display={{ xs: 'none', lg: 'block' }}
         >
-          환영해요 Welcome!
+          {title}
         </Typography>
       </Stack>
 
