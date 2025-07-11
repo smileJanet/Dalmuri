@@ -37,7 +37,8 @@ const Chat = () => {
                     },
                 }}
             >
-                {/* 버튼 클릭 시 FriendListPopup 뜨게 하기*/}
+                {/* (1) 모바일 화면에서의 채팅방 - 글자 크기, 비율 줄이기*/}
+                {/* (2) 버튼 클릭 시 FriendListPopup 뜨게 하기*/}
                 <IconifyIcon icon={'mingcute:plus-fill'} />
             </Button>
         </Box>
