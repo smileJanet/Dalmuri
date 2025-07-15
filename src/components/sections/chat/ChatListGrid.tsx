@@ -32,23 +32,28 @@ const ChatListGrid = () => {
     {
       field: 'name',
       headerName: '채팅방',
-      flex:1.5,
+      flex: 1.2,
+      minWidth: 150,
+      align: 'center',
+      headerAlign: 'center',
       renderCell:(params) => (
         <Stack>
           <Typography
             fontWeight={400}
-            fontSize="1.1rem"
-            margin="10px"
             color="background.dark"
+            sx={{
+              fontSize: { xs: '0.8rem', md: '1.1rem' },
+              margin: { xs: '0.2rem', md: '10px' },
+            }}
           >
             {params.value}
           </Typography>
           <Typography
             variant="body2"
             color="text.main"
-            margin="10px"
-            fontSize="1.1rem"
             sx = {{
+              fontSize: { xs: '0.8rem', md: '1.1rem' },
+              margin: { xs: '0.2rem', md: '10px' },
               whiteSpace: 'nowrap',
               overflow:'hidden',
               textOverflow:'ellipsis',
@@ -57,38 +62,39 @@ const ChatListGrid = () => {
           >
             {params.row.lastMsg}
           </Typography>
+          {
+            !params.row.read ? (
+              <IconifyIcon
+                icon={'mdi:alarm-check'}
+                color={"error.main"}
+                sx={{
+                  fontSize: { xs: '1.0rem', md: '1.5rem' },
+                  margin: { xs: '0.2rem', md: '10px' },
+                }}
+              />
+            ) : null
+          }
         </Stack>
       )
     },
     {
       field:'time',
-      headerName:'최근 메시지 시간',
-      flex:1,
+      headerName:'전송 시간',
+      flex: 0.8,
+      minWidth: 90,
+      align: 'center',
+      headerAlign: 'center',
       renderCell:(params) => (
         <Typography
           color="text.secondary"
-          fontSize="1.0rem"
-          margin="10px"
+          sx={{
+            fontSize: { xs: '0.85rem', md: '1.0rem' },
+            margin: { xs: '0.2rem', md: '10px' },
+          }}
         >
           {params.value}
         </Typography>
       )
-    },
-    {
-      field:'read',
-      headerName:'읽음 여부',
-      flex:1,
-      renderCell: (params) =>
-        !params.value ? (
-        <IconifyIcon
-          icon={'mdi:alarm-check'}
-          color="error.main"
-          style={{
-            fontSize: 25,
-            margin:10,
-          }}
-        />
-      ) : null
     },
   ]
 
@@ -114,7 +120,16 @@ const ChatListGrid = () => {
 
     {/* 채팅방 리스트 */}
       <Stack spacing={1}>
-        <Box sx = {{height:400, width:'100%'}}>
+        <Box sx = {{
+          width:'100%',
+          height: {
+            xs: 600,
+            sm: 700,
+            md: 700,
+            lg: 700,
+            xl: 750,
+          }
+        }}>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -122,11 +137,26 @@ const ChatListGrid = () => {
             hideFooterSelectedRowCount
             disableRowSelectionOnClick
             disableColumnMenu
-            rowHeight={50}
+            disableColumnResize
             sx={{
-              '& .MuiDataGrid-columnHeaderTitle':{
-                fontSize:'1.1rem',
-                }
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontSize: { xs: '0.7rem', md: '1.1rem' },
+              },
+              '& .MuiDataGrid-columnSeparator': {
+                display: 'none',
+              },
+              '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeaders': {
+                borderRight: '1px solid rgba(255,255,255,0.2)',
+              },
+              '& .MuiDataGrid-footerContainer': {
+                minHeight: '0.1rem',
+                paddingTop: '1rem',
+                paddingBottom: '0.1rem',
+              },
+              '& .MuiTablePagination-root': {
+                fontSize: '0.75rem',
+              },
+              overflowX: 'auto',
             }}
           />
         </Box>

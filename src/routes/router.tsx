@@ -7,6 +7,7 @@ import AuthLayout from 'layouts/auth-layout';
 import LoginLayout from 'layouts/login-layout';
 import Splash from 'components/loading/Splash';
 import PageLoader from 'components/loading/PageLoader';
+import { NoTopbarFooterProvider } from 'contexts/NoTopbarFooterContext.tsx'
 
 const App = lazy(() => import('App'));
 const Dashboard = lazy(() => import('@/pages/dashboard'));
@@ -97,12 +98,15 @@ const router = createBrowserRouter(
         },
         {
           path: '/pages',
-          element: <MainLayout />, // ✅ 사이드바가 있는 레이아웃
+          element:
+            <NoTopbarFooterProvider>
+             <MainLayout />
+           </NoTopbarFooterProvider>, // ✅ 사이드바가 있는 레이아웃
           children: [
             { path: 'dashboard', element: <Dashboard /> },
             { path: 'journal', element: <Journal /> },
             { path: 'community', element: <Community /> },
-            { path: 'chat', element: <Chat /> },
+            { path: 'chat', element: <Chat />},
             { path: 'memories', element: <Memories /> },
           ],
         },
