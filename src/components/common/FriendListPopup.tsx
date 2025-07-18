@@ -3,13 +3,13 @@ import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Button from '@mui/material/Button'
-import { Friend } from 'pages/common'
+import { User } from 'pages/common'
 import Avatar from '@mui/material/Avatar'
 
 interface FriendList{
   open: boolean
   onClose: () => void
-  friendList: Friend[]
+  friendList: User[]
   onSelectFriend: (friend: string) => void
 }
 
@@ -36,9 +36,9 @@ const FriendListPopup = ({open, onClose, friendList, onSelectFriend}: FriendList
       <DialogContent dividers sx={{p: 0}}>
         <List>
           {friendList.map((friend) => (
-            <ListItem key={friend.friendCd} disablePadding sx={{mb: 0.5}}>
+            <ListItem key={friend.userCd} disablePadding sx={{mb: 0.5}}>
               <ListItemButton
-                onClick={() => onSelectFriend(friend.name)}
+                onClick={() => onSelectFriend(friend.userNm ?? '알 수 없음')}
                 sx={{
                   borderRadius: 2,
                   '&:hover': {
@@ -50,11 +50,11 @@ const FriendListPopup = ({open, onClose, friendList, onSelectFriend}: FriendList
               >
                 <ListItemAvatar>
                   <Avatar sx={{ bgcolor: friend.bgColor, color:friend.textColor}}>
-                    {friend.name[0]}
+                    {friend.userNm?.[0]}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={friend.name}
+                  primary={friend.userNm}
                   primaryTypographyProps={{
                     fontWeight: 500,
                     fontSize: '1.1rem',

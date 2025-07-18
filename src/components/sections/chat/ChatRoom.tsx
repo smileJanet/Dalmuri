@@ -1,4 +1,4 @@
-import {Friend, Message} from "pages/common";
+import { User, Message } from 'pages/common'
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material";
@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import MessageBubble from 'components/sections/chat/MessageBubble.tsx'
 
 interface Props{
-    friend: Friend | null
+    friend: User | null
     onBack: () => void
 }
 /*
@@ -36,7 +36,7 @@ const ChatRoom = ({friend, onBack}:Props) => {
   useEffect(() => {
     if(!friend) return
 
-    ws.current = new WebSocket(`ws://localhost:3001/chat?id=${friend.id}`) // 실제 서버로 변경할 것
+    ws.current = new WebSocket(`ws://localhost:3001/chat?id=${friend.userId}`) // 실제 서버로 변경할 것
 
     ws.current.onopen = () => {
       console.log("WebSocket Connected")
@@ -66,7 +66,7 @@ const ChatRoom = ({friend, onBack}:Props) => {
       if(!input.trim() || !ws.current || ws.current.readyState !== WebSocket.OPEN) return
       const newMsg:Message = {
           msgCd:'',
-          senderId:'admin',
+          senderId:friend?.userId || '알 수 없음',
           text:input,
           timestamp: new Date().toISOString(),
           isMine: true,
@@ -80,92 +80,93 @@ const ChatRoom = ({friend, onBack}:Props) => {
   }
 
   return(
-    <Paper
-        sx={{
-            height: {
-                xs: 600,
-                sm: 700,
-                md: 700,
-                lg: 700,
-                xl: 750,
-            },
-            display:'flex',
-            flexDirection:'column',
-            overflow: 'hidden',
-        }}
-    >
-        {/* 채팅방 header */}
-        <Box
-            sx = {{
-                px:2,
-                py:2,
-                borderBottom : '1px solid white',
-                alignItems:'left',
-                display:'flex',
-                flexShrink: 0,
-            }}
-        >
-            <IconifyIcon
-                icon={'mingcute:arrow-left-line'}
-                onClick={onBack}
-                color = {theme.palette.info.main}
-                width={24}
-                height={24}
-            />
-            <Typography variant="h6" sx={{ ml: 1 }}>
-                {friend?.name ?? "알 수 없음"}
-            </Typography>
-        </Box>
+      <Paper
+          sx={{
+              height: {
+                  xs: 600,
+                  sm: 700,
+                  md: 700,
+                  lg: 700,
+                  xl: 750,
+              },
+              display:'flex',
+              flexDirection:'column',
+              overflow: 'hidden',
+          }}
+      >
+          {/* 채팅방 header */}
+          <Box
+              sx = {{
+                  px:2,
+                  py:2,
+                  borderBottom : '1px solid white',
+                  alignItems:'left',
+                  display:'flex',
+                  flexShrink: 0,
+              }}
+          >
+              <IconifyIcon
+                  icon={'mingcute:arrow-left-line'}
+                  onClick={onBack}
+                  color = {theme.palette.info.main}
+                  width={24}
+                  height={24}
+              />
+              <Typography variant="h6" sx={{ ml: 1 }}>
+                  {friend?.userNm ?? "알 수 없음"}
+              </Typography>
+          </Box>
 
-        {/* 채팅방 메시지 */}
-        <Box
-            sx = {{
-                flex:1,
-                overflowY:'auto',
-                px:2,
-                py:1,
-                display:'flex',
-                flexDirection:'column',
-                gap:1,
-                minHeight: 0,
-            }}
-        >
-            {messages.map((msg, index) => (
-                <MessageBubble key={index} message={msg} isMine={msg.isMine} />
-            ))}
-        </Box>
+          {/* 채팅방 메시지 */}
+          <Box
+              sx = {{
+                  flex:1,
+                  overflowY:'auto',
+                  px:2,
+                  py:1,
+                  display:'flex',
+                  flexDirection:'column',
+                  gap:1,
+                  minHeight: 0,
+              }}
+          >
+              {messages.map((msg, index) => (
+                  <MessageBubble key={index} message={msg} isMine={msg.isMine} />
+              ))}
+          </Box>
 
-        {/* 채팅방 Input */}
-        <Box
-            sx = {{
-                px:2,
-                py:1.5,
-                display:'flex',
-                gap:1,
-                borderTop: '1px solid white',
-            }}
-        >
-            <TextField
-                fullWidth
-                size="medium"
-                placeholder="메시지를 입력하세요."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if(e.key === 'Enter' && !e.nativeEvent.isComposing) {
-                    e.preventDefault()
-                    handleSend()
-                    }
-                }}
-            />
-            <Button
-                variant='contained'
-                onClick={handleSend}
-            >
-                전송
-            </Button>
-        </Box>
-    </Paper>
+          {/* 채팅방 Input */}
+          <Box
+              sx = {{
+                  px:2,
+                  py:1.5,
+                  display:'flex',
+                  gap:1,
+                  borderTop: '1px solid white',
+              }}
+          >
+              <TextField
+                  fullWidth
+                  size="medium"
+                  placeholder="메시지를 입력하세요."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if(e.key === 'Enter' && !e.nativeEvent.isComposing) {
+                      e.preventDefault()
+                      handleSend()
+                      }
+                  }}
+              />
+              <Button
+                  variant='contained'
+                  onClick={handleSend}
+              >
+                  전송
+              </Button>
+          </Box>
+      </Paper>
+
   )
 
 }

@@ -5,41 +5,19 @@ import Button from "@mui/material/Button";
 import IconifyIcon from "components/base/IconifyIcon.tsx";
 import { useState } from 'react'
 import FriendListPopup from 'components/common/FriendListPopup.tsx';
-import { Friend } from 'pages/common'
+import { TEMP_USERS, User } from 'pages/common'
 import ChatRoom from 'components/sections/chat/ChatRoom.tsx'
 import { useNoTopbarFooter } from 'contexts/NoTopbarFooterContext.tsx'
 
 const Chat = () => {
   const [isPopupOpen, setPopupOpen] = useState(false)
-  const [selectedFriend, setSelectedFriend] = useState<Friend|null>(null)
+  const [selectedFriend, setSelectedFriend] = useState<User|null>(null)
   const {isChatRoomOpen, setChatRoomOpen} = useNoTopbarFooter()
 
-  const [friendList] = useState<Friend[]>([
-    {
-      friendCd:'01',
-      id:'user01',
-      name:'킴주영',
-      bgColor: '#6A3FE9',
-      textColor: '#FFFFFF'
-    },
-    {
-      friendCd:'02',
-      id:'user02',
-      name:'김부꾸',
-      bgColor: '#B6FFE0',
-      textColor: '#0A1020'
-    },
-    {
-      friendCd:'03',
-      id:'user03',
-      name:'짱인쿙',
-      bgColor: '#002845',
-      textColor: '#FFFFFF'
-    },
-  ])
+  const [friendList] = useState<User[]>(TEMP_USERS)
 
   const handleSelectFriend = (_friend: string) => {
-    const selectedFriend = friendList.find(friend => friend.name === _friend);
+    const selectedFriend = friendList.find(friend => friend.userNm === _friend);
 
     if (selectedFriend) {
       setSelectedFriend(selectedFriend)

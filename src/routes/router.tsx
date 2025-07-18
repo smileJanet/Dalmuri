@@ -99,7 +99,7 @@ const router = createBrowserRouter(
         {
           path: '/pages',
           element:
-            <NoTopbarFooterProvider>
+           <NoTopbarFooterProvider>
              <MainLayout />
            </NoTopbarFooterProvider>, // ✅ 사이드바가 있는 레이아웃
           children: [
