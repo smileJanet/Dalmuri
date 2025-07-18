@@ -1,5 +1,5 @@
 interface FormatOptions {
-  style: string;
+  style: 'decimal' | 'currency' | 'percent' | 'unit'
   currency: string;
   maximumFractionDigits?: number;
   minimumFractionDigits?: number;
@@ -13,5 +13,7 @@ export const formatNumber = (
   return new Intl.NumberFormat(format, {
     style: options.style,
     currency: options.currency,
+    maximumFractionDigits: options.maximumFractionDigits,
+    minimumFractionDigits: options.minimumFractionDigits,
   }).format(price);
 };

@@ -12,15 +12,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import IconifyIcon from 'components/base/IconifyIcon';
 import paths from 'routes/paths';
+import { TEMP_USERS, User } from 'pages/common'
 
-interface User {
-  id:  string
-  password: string
-  name?: string
-}
 
 const Login = () => {
-  const [user, setUser] = useState<User>({ id: '', password: '' });
+  const [user, setUser] = useState<User>({ userId: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -32,7 +28,9 @@ const Login = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if(user.id === 'admin' && user.password === '1234'){
+    const loggedUser = TEMP_USERS.find(u => u.userId === user.userId && u.password === user.password)
+    if(loggedUser){
+      localStorage.setItem('loginUser', JSON.stringify(loggedUser))
       navigate('/pages/dashboard')
     } else {
       alert('아이디 혹은 비밀번호가 틀렸습니다.');
@@ -66,14 +64,14 @@ const Login = () => {
       <Divider sx={{ my: 3 }}>or Login with</Divider>
       <Stack onSubmit={handleSubmit} component="form" direction="column" gap={2}>
         <TextField
-          id="id"
-          name="id"
+          id="userId"
+          name="userId"
           type="id"
-          value={user.id}
+          value={user.userId}
           onChange={handleInputChange}
           variant="filled"
           placeholder="아이디"
-          autoComplete="id"
+          autoComplete="current-userId"
           fullWidth
           autoFocus
           required
