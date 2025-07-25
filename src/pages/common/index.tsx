@@ -8,11 +8,12 @@ export interface User {
 }
 
 export interface Message{
-  msgCd: string,
-  senderId: string,
-  text: string,
-  timestamp: string,
-  isMine: boolean,
+  msgCd: string, // 메시지 pk
+  senderId: string, // 보내는 사람 id
+  text: string, // 메시지 내용
+  timestamp: string, // 전송 시간
+  file?: string[] | null, // 파일
+  isMine: boolean, // 내가 보낸건지
 }
 
 export const TEMP_USERS = [

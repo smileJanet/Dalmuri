@@ -11,6 +11,15 @@ interface Props{
 const MessageBubble = ({message, isMine}:Props) => {
   const theme = useTheme()
 
+  // useEffect(() => {
+  //   console.log("src={message.file[0]} : ", message.file?.[0])
+  // })
+
+  /*
+  * message.files?.[0] : http://localhost:3001/upload/파일명.jpg로 뜰 것이다.
+  * back단에서 "registry.addResourceHandler()" 작성시 나오는 경로와 **일치해야 한다!**
+  * */
+
   return(
     <Box
       sx = {{
@@ -24,27 +33,41 @@ const MessageBubble = ({message, isMine}:Props) => {
         sx = {{
           bgcolor: isMine ? theme.palette.primary.dark : theme.palette.grey[300],
           color: isMine ? 'white' : 'black',
-          px:2,
-          py:1,
+          p: message.file && message.file.length > 0 ? 0.5 : '8px 16px',
           borderRadius: isMine ? '16px 16px 0px 16px' : '16px 16px 16px 0px',
           maxWidth: '75%;',
           wordBreak: 'break-word',
         }}
       >
-        <Typography
-          variant="body2"
-          sx = {{
-            fontSize:{
-              xs: '0.9rem',
-              sm: '1rem',
-              md: '1.05rem',
-              lg: '1.1rem',
-              xl: '1.15rem',
-            }
-          }}
-        >
-          {message.text}
-        </Typography>
+        {
+          message.file && message.file.length > 0 ? (
+            <img
+              src={message.file[0]}
+              alt="채팅 이미지"
+              style={{
+                display: 'block',
+                maxWidth: '100%',
+                height: 'auto',
+                borderRadius:'14px',
+            }}
+            />
+          ) : (
+            <Typography
+              variant="body2"
+              sx = {{
+                fontSize:{
+                  xs: '0.9rem',
+                  sm: '1rem',
+                  md: '1.05rem',
+                  lg: '1.1rem',
+                  xl: '1.15rem',
+                }
+              }}
+            >
+              {message.text}
+            </Typography>
+          )
+        }
       </Box>
 
     {/* 타임스탬프 */}
