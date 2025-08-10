@@ -12,8 +12,8 @@ const ChatListGrid = () => {
   const chatRooms = [
     {
     id: 1,
-    name: '킴주영',
-    lastMsg: '내일 어디서 만나 우리',
+    name: '킴주영킴주영킴주영킴주영',
+    lastMsg: '야너내일머하냐야너내일머하냐야너내일머하냐야너내일머하냐야너내일머하냐',
     time: '4:20 pm',
     read: true,
     },
@@ -44,6 +44,10 @@ const ChatListGrid = () => {
             sx={{
               fontSize: { xs: '0.8rem', md: '1.1rem' },
               margin: { xs: '0.2rem', md: '10px' },
+              whiteSpace: 'nowrap',
+              overflow:'hidden',
+              textOverflow:'ellipsis',
+              maxWidth:'100%',
             }}
           >
             {params.value}
@@ -145,8 +149,11 @@ const ChatListGrid = () => {
               '& .MuiDataGrid-columnSeparator': {
                 display: 'none',
               },
+              '& .MuiDataGrid-row': {
+                padding: '0px'
+              },
               '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeaders': {
-                borderRight: '1px solid rgba(255,255,255,0.2)',
+                padding: '0px'
               },
               '& .MuiDataGrid-footerContainer': {
                 minHeight: '0.1rem',
