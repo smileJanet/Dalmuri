@@ -1,42 +1,15 @@
-import './community.css';
+import Grid from '@mui/material/Grid'
+import EmotionDiaryWidget from 'components/sections/community/EmotionDiaryWidget.tsx'
 
 const Community = () => {
   return(
-    <>
-      <div>
-        <div className="timecapsule-container">
-          <div className="time-loader">
-            <div className="clock-hand"></div>
-            <div className="clock-hand"></div>
+    <Grid container spacing={{ xs: 2.5, sm: 3, lg: 3.75 }}>
+      <Grid item xs={12} xl={8}>
+        <EmotionDiaryWidget />
+      </Grid>
 
-            <div className="center-dot"></div>
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-            <div className="time-markers">
-              <div className="marker"></div>
-              <div className="marker"></div>
-              <div className="marker"></div>
-              <div className="marker"></div>
-            </div>
-          </div>
-
-          <div className="floating-particles">
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-          </div>
-
-          <div className="loading-text">Time Capsule</div>
-        </div>
-      </div>
-    </>
+    </Grid>
   )
 }
 
-export default Community;
+export default Community

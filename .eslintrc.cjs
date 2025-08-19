@@ -27,5 +27,6 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'off',
     'react-hooks/rules-of-hooks': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    'semi': 'off',
   },
 }

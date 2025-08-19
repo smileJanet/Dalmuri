@@ -1,16 +1,16 @@
-import { useRef } from 'react';
-import { fontFamily } from 'theme/typography';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import IconifyIcon from 'components/base/IconifyIcon';
-import EChartsReactCore from 'echarts-for-react/lib/core';
-import VisitorsChartLegends from './VisitorsChartLegends';
-import VisitorsChart from './VisitorsChart';
+import { useRef } from 'react'
+import { fontFamily } from 'theme/typography'
+import Paper from '@mui/material/Paper'
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import IconifyIcon from 'components/base/IconifyIcon'
+import EChartsReactCore from 'echarts-for-react/lib/core'
+import VisitorsChartLegends from './VisitorsChartLegends'
+import VisitorsChart from './VisitorsChart'
 
 const WebsiteVisitors = () => {
-  const chartRef = useRef<EChartsReactCore>(null);
+  const chartRef = useRef<EChartsReactCore>(null)
 
   return (
     <Paper sx={{ height: 500 }}>
@@ -36,7 +36,7 @@ const WebsiteVisitors = () => {
       {/* legends */}
       <VisitorsChartLegends chartRef={chartRef} />
     </Paper>
-  );
-};
+  )
+}
 
-export default WebsiteVisitors;
+export default WebsiteVisitors

@@ -68,4 +68,4 @@ export const theme = createTheme({
   },
   customShadows,
   spacing: 8,
-});
+})
