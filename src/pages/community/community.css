@@ -1,0 +1,241 @@
+.timecapsule-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.time-loader {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 시계 바늘 효과 */
+.clock-hand {
+    position: absolute;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to top, transparent, #ffe8f3, #ddd6f7); /* 살짝 더 진한 핑크 → 라벤더 */
+    border-radius: 1px;
+    transform-origin: bottom center;
+    animation: clockTick 4s infinite linear;
+    top: 20px;
+    left: 50%;
+    margin-left: -1px;
+    box-shadow: 0 0 10px rgba(255, 232, 243, 0.7);
+}
+
+.clock-hand:nth-child(6) {
+    height: 30px;
+    animation: clockTick 12s infinite linear;
+    top: 30px;
+    opacity: 0.7;
+}
+
+/* 중앙 시간 코어 */
+.center-dot {
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #ffe8f3, #ddd6f7); /* 살짝 더 진한 핑크 → 라벤더 */
+    border-radius: 50%;
+    box-shadow:
+            0 0 20px #fef0f6,
+            0 0 30px #ede8ff,
+            0 0 40px rgba(255, 232, 243, 0.7),
+            inset 0 0 10px rgba(255, 255, 255, 0.4);
+    z-index: 10;
+    animation: heartbeat 2s infinite ease-in-out;
+    position: relative;
+}
+
+.center-dot::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    animation: sparkle 3s infinite ease-in-out;
+}
+
+/* 시간의 고리들 */
+.time-loader span {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: timeRipple 6s infinite ease-out;
+    opacity: 0.3;
+}
+
+.time-loader span:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    border-color: #ffe4f1; /* 매우 연한 핑크 */
+    animation-delay: 0s;
+    border-style: dashed;
+}
+
+.time-loader span:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    border-color: #f0e6ff; /* 매우 연한 보라 */
+    animation-delay: 2s;
+    border-style: dotted;
+}
+
+.time-loader span:nth-child(4) {
+    width: 120px;
+    height: 120px;
+    border-color: #e6f3ff; /* 매우 연한 하늘색 */
+    animation-delay: 4s;
+}
+
+/* 떠다니는 시간 입자들 */
+.floating-particles {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(45deg, #fff0f5, #e6e6fa); /* 연한 핑크 → 연한 라벤더 */
+    border-radius: 50%;
+    animation: float 8s infinite ease-in-out;
+    opacity: 0.5;
+}
+
+.particle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+.particle:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+.particle:nth-child(3) { bottom: 30%; left: 10%; animation-delay: 2s; }
+.particle:nth-child(4) { bottom: 15%; right: 25%; animation-delay: 3s; }
+.particle:nth-child(5) { top: 50%; left: 5%; animation-delay: 4s; }
+.particle:nth-child(6) { top: 60%; right: 8%; animation-delay: 5s; }
+
+/* 로딩 텍스트 */
+.loading-text {
+    color: #fff0f5; /* 연한 핑크 */
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    opacity: 0.8;
+    animation: textGlow 3s infinite ease-in-out;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.loading-text::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e6e6fa, transparent); /* 연한 라벤더 */
+    animation: lineGlow 2s infinite ease-in-out;
+}
+
+/* 시간 표시기 */
+.time-markers {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+}
+
+.marker {
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    background: rgba(255, 240, 245, 0.3); /* 매우 연한 핑크 */
+    border-radius: 1px;
+}
+
+.marker:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+.marker:nth-child(2) { right: 0; top: 50%; transform: translateY(-50%) rotate(90deg); }
+.marker:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%) rotate(180deg); }
+.marker:nth-child(4) { left: 0; top: 50%; transform: translateY(-50%) rotate(270deg); }
+
+/* 애니메이션들 */
+@keyframes timeRipple {
+    0% {
+        transform: scale(0.8) rotate(0deg);
+        opacity: 0.4;
+        filter: blur(0px);
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(1.4) rotate(360deg);
+        opacity: 0;
+        filter: blur(4px);
+    }
+}
+
+@keyframes clockTick {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.5;
+    }
+    25% {
+        transform: translateY(-20px) rotate(90deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-15px) rotate(180deg);
+        opacity: 0.3;
+    }
+    75% {
+        transform: translateY(-25px) rotate(270deg);
+        opacity: 0.6;
+    }
+}
+
+@keyframes textGlow {
+    0%, 100% {
+        opacity: 0.8;
+        text-shadow: 0 0 10px rgba(255, 240, 245, 0.4);
+    }
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(230, 230, 250, 0.6);
+    }
+}
+
+@keyframes lineGlow {
+    0%, 100% {
+        transform: scaleX(0.5);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 0.6;
+    }
+}

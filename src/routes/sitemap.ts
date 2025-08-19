@@ -44,7 +44,7 @@ const sitemap: MenuItem[] = [
     id: 'chat',
     subheader: '채팅하기 Chat', // 일반 채팅, 단체 채팅, 비밀 채팅
     path: '/pages/chat',
-    icon: 'mingcute:currency-dollar-2-line',
+    icon: 'mingcute:chat-1-fill',
     active: true,
   },
   {

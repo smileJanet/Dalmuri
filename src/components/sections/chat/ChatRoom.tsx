@@ -43,9 +43,8 @@ const ChatRoom = ({friend, onBack}:Props) => {
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>){
     const selected = e.target.files
     if(!selected) return
-
-    const filesArray = Array.from(selected).slice(0, 5)
-    setFile(filesArray)
+    const filesArray = Array.from(selected)
+    setFile(prev => [...prev, ...filesArray].slice(0, 5))
   }
 
   useEffect(() => {
@@ -231,6 +230,7 @@ const ChatRoom = ({friend, onBack}:Props) => {
               {/* 파일 선택 버튼 */}
               <input
                 type="file"
+                multiple
                 hidden
                 ref={fileInputRef}
                 onChange={handleFileChange}
@@ -267,51 +267,63 @@ const ChatRoom = ({friend, onBack}:Props) => {
           </Box>
 
         {/* 파일 업로드 */}
-        {
-          file.length > 0 && file.map((f, index) => (
-            f && (
-              <Box
-                key={f?.name + index}
-                display="flex"
-                alignItems = "center"
-                gap={0.5}
-                px={1}
-                py={0.5}
-                mt={0.5}
-                bgcolor= {theme.palette.primary.main}
-                borderRadius={2}
-                border="1px solid #ddd"
-                maxWidth="130px"
-                sx={{
-                  maxWidth: isMobile ? '100px' : '130px',
-                  margin: isMobile ? '1px 5px' : '1px 20px',
-                }}
-              >
-                <AttachFile fontSize="small"/>
-                <Typography
-                  variant="body2"
-                  noWrap
-                  sx = {{
-                    overflow:'hidden',
-                    textOverflow:'ellipse',
-                    whiteSpace:'noWrap',
-                    flex:1,
+        <Box
+          sx={{
+            display:'flex',
+            flexDirection:'row',
+            flewWrap:'Wrap',
+          }}
+        >
+          {
+            file.length > 0 && file.map((f, index) => (
+              f && (
+                <Box
+                  key={f?.name + index}
+                  display="flex"
+                  alignItems = "center"
+                  gap={0.5}
+                  px={1}
+                  py={0.5}
+                  mt={0.5}
+                  bgcolor= {theme.palette.primary.main}
+                  borderRadius={2}
+                  border="1px solid #ddd"
+                  maxWidth="130px"
+                  sx={{
+                    display:'flex',
+                    flexDirection:'row',
+                    flewWrap:'Wrap',
+                    gap:1,
+                    maxWidth: isMobile ? '100px' : '130px',
+                    margin: isMobile ? '1px 5px' : '0px 5px',
                   }}
                 >
-                  {f!.name}
-                </Typography>
-                <IconButton
-                  size="small"
-                  onClick={() => {
-                    setFile(p => p.filter((_, i) => i !== index))
-                  }}
-                >
-                  <Close fontSize="small" />
-                </IconButton>
-              </Box>
-            )
-          ))
-        }
+                  <AttachFile fontSize="small"/>
+                  <Typography
+                    variant="body2"
+                    noWrap
+                    sx = {{
+                      overflow:'hidden',
+                      textOverflow:'ellipse',
+                      whiteSpace:'noWrap',
+                      flex:1,
+                    }}
+                  >
+                    {f!.name}
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      setFile(p => p.filter((_, i) => i !== index))
+                    }}
+                  >
+                    <Close fontSize="small" />
+                  </IconButton>
+                </Box>
+              )
+            ))
+          }
+        </Box>
       </Paper>
 
   )
