@@ -1,7 +1,5 @@
 import Grid from '@mui/material/Grid'
 import TimecapsuleWidget from 'components/sections/memories/TimecapsuleWidget.tsx'
-import '../../style/memories.css'
-
 
 const Memories = () => {
   return(
