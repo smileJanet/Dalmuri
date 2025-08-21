@@ -1,37 +1,34 @@
-/* Aesthetic Anonymous Letter Styles */
-
-/* Main container */
+/* Main container - 반응형 기준 설정 */
 .letter-wrapper {
-    height: 200px;
-    /*background: linear-gradient(135deg, #e3e8ff 0%, #d6f0ff 30%, #e6d0ff 70%, #b99bee 100%);*/
-    border-radius: 16px;
+    width: clamp(120px, 15vw, 150px);
+    height: clamp(96px, 12vw, 120px);
+    border-radius: clamp(12px, 1.6vw, 16px);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: visible;
-    /*box-shadow: 0 20px 40px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);*/
 }
 
-/* Background glow effects */
+/* Background glow effects - 컨테이너 크기에 맞춰 조정 */
 .glow-effect-1 {
     position: absolute;
-    top: 20%;
-    left: 10%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(184, 244, 250, 0.6) 0%, transparent 70%);
+    top: 25%;
+    left: 25%;
+    width: clamp(120px, 15vw, 150px);
+    height: clamp(120px, 15vw, 150px);
+    background: radial-gradient(circle, rgba(184, 244, 250, 0.8) 0%, transparent 70%);
     border-radius: 50%;
     animation: pulse 4s ease-in-out infinite;
 }
 
 .glow-effect-2 {
     position: absolute;
-    bottom: 10%;
+    bottom: 20%;
     right: 20%;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(211, 174, 252, 0.5) 0%, transparent 70%);
+    width: clamp(136px, 17vw, 170px);
+    height: clamp(136px, 17vw, 170px);
+    background: radial-gradient(circle, rgba(211, 174, 252, 0.6) 0%, transparent 70%);
     border-radius: 50%;
     animation: pulse 3s ease-in-out infinite reverse;
 }
@@ -39,36 +36,47 @@
 /* Letter container */
 .letter-container {
     position: relative;
-    width: 180px;
-    height: 120px;
+    width: clamp(144px, 18vw, 180px);
+    height: clamp(96px, 12vw, 120px);
 }
 
 /* Main envelope */
 .envelope {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: clamp(128px, 16vw, 160px);
+    height: clamp(96px, 12vw, 120px);
+    border: clamp(1px, 0.2vw, 2px) solid #7ecbff;
+    border-radius: clamp(3px, 0.4vw, 4px);
     background: linear-gradient(145deg, #e3e8ff 0%, #ade0ff 100%);
-    border: 2px solid #7ecbff;
-    border-radius: 12px;
-    box-shadow:
-            0 8px 50px rgba(0,0,0,0.05),     /* 외부 그림자: 블러 크게, 투명 낮춤 */
-            inset 0 2px 15px rgba(255,255,255,0.15), /* 내부 그림자: 부드럽게 퍼짐 */
-            0 0 50px rgba(173, 224, 255,0.2); /* 은은한 푸른빛 퍼지게 */
     overflow: hidden;
-    backdrop-filter: blur(10px);
+    box-shadow:
+            0 clamp(4px, 0.8vw, 8px) clamp(15px, 3vw, 30px) rgba(0,0,0,0.1),
+            inset 0 clamp(1px, 0.2vw, 2px) clamp(5px, 1vw, 10px) rgba(255,255,255,0.2);
 }
 
-/* Envelope body */
+/* Envelope 하단 (편지 들어가는 몸통 부분) */
 .envelope .body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 75%;
+    height: 70%;
     background: linear-gradient(145deg, #d6f0ff 0%, #a5baff 100%);
-    border-top: 1px solid #7ecbff;
-    border-radius: 0 0 10px 10px;
+    border-top: clamp(0.5px, 0.1vw, 1px) solid #7ecbff;
+    border-radius: 0 0 clamp(3px, 0.4vw, 4px) clamp(3px, 0.4vw, 4px);
     z-index: 1;
+}
+
+/* Envelope 상단 flap (삼각형) */
+.envelope .flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: clamp(64px, 8vw, 80px) solid transparent;
+    border-right: clamp(64px, 8vw, 80px) solid transparent;
+    border-top: clamp(48px, 6vw, 60px) solid #e3e8ff;
+    z-index: 2;
 }
 
 /* Inner glow */
@@ -90,17 +98,17 @@
 
 .floating-letters .letter {
     position: absolute;
-    width: 28px;
-    height: 20px;
+    width: clamp(22px, 2.8vw, 28px);
+    height: clamp(16px, 2vw, 20px);
     background: linear-gradient(145deg, #eef9ff 0%, #d3aefc 100%);
-    border: 1px solid #7ecbff;
+    border: clamp(0.5px, 0.1vw, 1px) solid #7ecbff;
     top: 50%;
     left: 50%;
-    border-radius: 4px;
+    border-radius: clamp(3px, 0.4vw, 4px);
     box-shadow:
-            0 4px 15px rgba(0,0,0,0.1),
-            0 0 10px rgba(184, 244, 250, 0.8),
-            inset 0 1px 0 rgba(255,255,255,0.5);
+            0 clamp(3px, 0.4vw, 4px) clamp(12px, 1.5vw, 15px) rgba(0,0,0,0.1),
+            0 0 clamp(8px, 1vw, 10px) rgba(184, 244, 250, 0.8),
+            inset 0 clamp(0.5px, 0.1vw, 1px) 0 rgba(255,255,255,0.5);
     animation: floatLetter 4s ease-out infinite;
 }
 
@@ -109,7 +117,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(45deg, transparent 0%, rgba(214, 250, 255, 0.4) 50%, transparent 100%);
-    border-radius: 3px;
+    border-radius: clamp(2px, 0.3vw, 3px);
     position: absolute;
     top: 0;
     left: 0;
@@ -127,24 +135,63 @@
     animation-delay: 2.4s;
 }
 
-/* Loading text */
+/* Loading text - 반응형 폰트 크기 */
 .loading-text {
     position: absolute;
-    bottom: 60px;
+    line-height: 1.2;
+    bottom: clamp(20px, 2.5vw, 25px);
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     font-weight: 600;
-    font-size: 18px;
+    font-size: clamp(14px, 2vw, 20px);
     background: linear-gradient(45deg, #1589e5, #a150f2);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(126, 203, 255, 0.8);
+    text-shadow: 0 0 clamp(15px, 2vw, 20px) rgba(126, 203, 255, 0.8);
     animation: textGlow 2s ease-in-out infinite alternate;
+    z-index: 100;
+    white-space: nowrap;
 }
 
-/* Animations */
+/* Sparkle wrapper */
+.sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Sparkle 기본 스타일 - 크기 조정 */
+.sparkle {
+    position: absolute;
+    width: clamp(3px, 0.5vw, 5px);
+    height: clamp(3px, 0.5vw, 5px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+    box-shadow:
+            0 0 clamp(4px, 0.6vw, 6px) rgba(200, 230, 255, 0.5),
+            0 0 clamp(8px, 1.2vw, 12px) rgba(180, 200, 255, 0.3);
+    animation: sparkleTwinkle 3s infinite ease-in-out;
+    opacity: 0.8;
+    z-index: 11;
+}
+
+/* 봉투 주변으로 모이게 (envelope 근처에만 배치) */
+.sparkle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s;}
+.sparkle:nth-child(2) { top: 30%; left: 70%; animation-delay: 0.5s;}
+.sparkle:nth-child(3) { top: 60%; left: 35%; animation-delay: 1s;}
+.sparkle:nth-child(4) { top: 80%; left: 90%; animation-delay: 1.5s;}
+.sparkle:nth-child(5) { top: 25%; left: 80%; animation-delay: 2s;}
+.sparkle:nth-child(6) { top: 55%; left: 80%; animation-delay: 2.5s;}
+.sparkle:nth-child(7) { top: 70%; left: 30%; animation-delay: 3s;}
+.sparkle:nth-child(8) { top: 15%; left: 85%; animation-delay: 3.5s;}
+
+/* Animations - 반응형 거리 조정 */
 @keyframes floatLetter {
     0% {
         transform: translate(-50%, -50%) rotate(0deg);
@@ -157,7 +204,7 @@
         opacity: 0.8;
     }
     100% {
-        transform: translate(80px, -100px) rotate(45deg);
+        transform: translate(clamp(60px, 8vw, 80px), clamp(-80px, -10vw, -100px)) rotate(45deg);
         opacity: 0;
     }
 }
@@ -184,10 +231,145 @@
 
 @keyframes textGlow {
     0% {
-        filter: drop-shadow(0 0 10px rgba(126, 203, 255, 0.8));
+        filter: drop-shadow(0 0 clamp(8px, 1vw, 10px) rgba(126, 203, 255, 0.8));
     }
     100% {
-        filter: drop-shadow(0 0 20px rgba(195, 141, 249, 0.9));
+        filter: drop-shadow(0 0 clamp(15px, 2vw, 20px) rgba(195, 141, 249, 0.9));
+    }
+}
+
+@keyframes sparkleTwinkle {
+    0%, 100% {
+        transform: scale(0.5);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+/* 미디어 쿼리로 세밀한 조정 */
+/* 태블릿 화면 (768px - 1024px) */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+    .letter-wrapper {
+        width: clamp(100px, 12vw, 130px);
+        height: clamp(80px, 10vw, 104px);
+    }
+
+    .loading-text {
+        font-size: clamp(12px, 1.8vw, 18px);
+        bottom: clamp(15px, 2vw, 20px);
+    }
+}
+
+/* 모바일 화면 (최대 767px) */
+@media screen and (max-width: 767px) {
+    .letter-wrapper {
+        width: clamp(80px, 20vw, 120px);
+        height: clamp(64px, 16vw, 96px);
+    }
+
+    .letter-container {
+        width: clamp(100px, 25vw, 144px);
+        height: clamp(64px, 16vw, 96px);
+    }
+
+    .envelope {
+        width: clamp(85px, 21vw, 128px);
+        height: clamp(64px, 16vw, 96px);
+    }
+
+    .envelope .flap {
+        border-left: clamp(42px, 10.5vw, 64px) solid transparent;
+        border-right: clamp(42px, 10.5vw, 64px) solid transparent;
+        border-top: clamp(32px, 8vw, 48px) solid #e3e8ff;
+    }
+
+    .floating-letters .letter {
+        width: clamp(18px, 4.5vw, 22px);
+        height: clamp(13px, 3.2vw, 16px);
+    }
+
+    .loading-text {
+        font-size: clamp(10px, 4vw, 16px);
+        bottom: clamp(12px, 3vw, 18px);
+    }
+
+    .glow-effect-1,
+    .glow-effect-2 {
+        width: clamp(80px, 20vw, 120px);
+        height: clamp(80px, 20vw, 120px);
+    }
+
+    .sparkle {
+        width: clamp(2px, 0.8vw, 4px);
+        height: clamp(2px, 0.8vw, 4px);
+    }
+}
+
+/* 큰 화면 (1440px 이상) */
+@media screen and (min-width: 1440px) {
+    .letter-wrapper {
+        width: clamp(150px, 10.4vw, 180px);
+        height: clamp(120px, 8.3vw, 144px);
+    }
+
+    .letter-container {
+        width: clamp(180px, 12.5vw, 216px);
+        height: clamp(120px, 8.3vw, 144px);
+    }
+
+    .envelope {
+        width: clamp(160px, 11.1vw, 192px);
+        height: clamp(120px, 8.3vw, 144px);
+    }
+
+    .loading-text {
+        font-size: clamp(20px, 1.4vw, 24px);
+    }
+}
+
+/* 아주 작은 화면 (480px 이하) */
+@media screen and (max-width: 480px) {
+    .letter-wrapper {
+        width: clamp(60px, 18vw, 100px);
+        height: clamp(48px, 14.4vw, 80px);
+    }
+
+    .loading-text {
+        font-size: clamp(8px, 3.5vw, 14px);
+        bottom: clamp(8px, 2.5vw, 15px);
+    }
+
+    .floating-letters .letter {
+        width: clamp(14px, 4vw, 20px);
+        height: clamp(10px, 3vw, 15px);
+    }
+
+    @keyframes floatLetter {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 0.8;
+        }
+        100% {
+            transform: translate(clamp(40px, 10vw, 60px), clamp(-50px, -12vw, -80px)) rotate(45deg);
+            opacity: 0;
+        }
+    }
+}
+
+/* Container height 조정 (React 컴포넌트용) */
+@media screen and (max-width: 767px) {
+    /* Paper 컴포넌트의 height도 조정 필요시 */
+    .mobile-paper-height {
+        height: clamp(300px, 50vh, 400px) !important;
     }
 }
 

@@ -1,5 +1,7 @@
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import { fontFamily } from 'theme/typography.ts'
 
 const TodaysWordWidget = () => {
 
@@ -10,7 +12,13 @@ const TodaysWordWidget = () => {
         justifyContent="center"
         sx={{ height: '100%' }}
       >
-        오늘의 할말
+        <Typography
+          variant="h5"
+          fontWeight={500}
+          fontFamily={fontFamily.third}
+        >
+          "지금 가장 보고싶은 사람의 이름은?"
+        </Typography>
       </Stack>
     </Paper>
   )
