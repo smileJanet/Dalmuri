@@ -1,0 +1,112 @@
+
+.comfort-wrap{
+    position:relative;
+    width:clamp(260px, 38vw, 420px);
+    height:clamp(220px, 28vh, 320px);
+    border-radius:18px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 -1px 0 rgba(255,255,255,0.02);
+}
+
+/* 은은한 배경광 */
+.background-glow{
+    position:absolute;
+    width:180%;
+    height:180%;
+    left:-40%;
+    top:-60%;
+    background: radial-gradient(closest-side, rgba(195,141,249,0.12), transparent 40%),
+    radial-gradient(closest-side, rgba(255,182,193,0.08), transparent 30%);
+    filter: blur(20px);
+    animation: slowRotate 18s linear infinite;
+    pointer-events:none;
+}
+
+/* 파티클 */
+.particles{ position:absolute; inset:0; pointer-events:none; }
+.particles .p{
+    position:absolute;
+    width:8px;height:8px;border-radius:50%;
+    background:linear-gradient(135deg,#ffd6e8, #c6b6ff);
+    opacity:0.9;
+    box-shadow:0 0 12px rgba(200,160,255,0.6);
+    animation: float 4s ease-in-out infinite;
+}
+.particles .p:nth-child(1){ left:12%; top:70%; animation-delay:0s; }
+.particles .p:nth-child(2){ left:28%; top:20%; animation-delay:0.6s; width:6px;height:6px; }
+.particles .p:nth-child(3){ left:52%; top:10%; animation-delay:1.2s; }
+.particles .p:nth-child(4){ left:75%; top:45%; animation-delay:0.3s; width:10px;height:10px; }
+.particles .p:nth-child(5){ left:86%; top:78%; animation-delay:1s; }
+
+/* 메시지 */
+.message{
+    position:relative;
+    z-index:3;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    animation: gentleRise 6s ease-in-out infinite;
+}
+.message h1{
+    margin:0;
+    font-size:clamp(18px, 3.2vw, 28px);
+    color: white;
+    font-weight:700;
+    text-shadow:0 6px 26px rgba(21,8,40,0.5);
+}
+.message .sub{
+    margin:0;
+    font-size:clamp(12px,1.6vw,14px);
+    color: rgba(255,255,255,0.72);
+}
+
+/* 하트 */
+.heart{
+    width:36px;height:36px;
+    background:linear-gradient(180deg,#ff7ab6, #ff4d8a);
+    transform: rotate(-45deg);
+    position:relative;
+    border-radius:6px 6px 0 0;
+    box-shadow:0 6px 18px rgba(255,122,170,0.2), inset 0 -6px 14px rgba(255,255,255,0.08);
+    animation: heartbeat 1.4s ease-in-out infinite;
+    margin-bottom:6px;
+}
+.heart::before, .heart::after{
+    content:"";
+    position:absolute;
+    width:36px;height:36px;
+    background:inherit;
+    border-radius:50%;
+    top:-18px;
+    left:0;
+}
+.heart::after{ left:18px; }
+
+/* 키프레임 */
+@keyframes float{
+    0%{ transform: translateY(0) scale(1); opacity:0.95; }
+    50%{ transform: translateY(-18px) scale(1.08); opacity:0.6; }
+    100%{ transform: translateY(0) scale(1); opacity:0.95; }
+}
+@keyframes gentleRise{
+    0%{ transform: translateY(0) }
+    50%{ transform: translateY(-6px) }
+    100%{ transform: translateY(0) }
+}
+@keyframes heartbeat{
+    0%{ transform: rotate(-45deg) scale(1) }
+    35%{ transform: rotate(-45deg) scale(1.12) }
+    70%{ transform: rotate(-45deg) scale(0.96) }
+    100%{ transform: rotate(-45deg) scale(1) }
+}
+@keyframes slowRotate{
+    0%{ transform: rotate(0deg) }
+    100%{ transform: rotate(360deg) }
+}

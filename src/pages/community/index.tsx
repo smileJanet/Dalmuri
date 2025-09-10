@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid'
-import EmotionDiaryWidget from 'components/sections/community/EmotionDiaryWidget.tsx'
+import EmotionDiaryPublicWidget from 'components/sections/community/EmotionDiaryPublicWidget.tsx'
 import TodaysWordWidget from 'components/sections/community/TodaysWordWidget.tsx'
 import AnonymousLetterWidget from 'components/sections/community/AnonymousLetterWidget.tsx'
 import Box from '@mui/material/Box'
@@ -69,7 +69,7 @@ const Community = () => {
           display: 'flex',
           flexDirection: 'column'
         }}>
-          <EmotionDiaryWidget />
+          <EmotionDiaryPublicWidget />
         </Box>
       </Grid>
 

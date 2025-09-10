@@ -29,6 +29,7 @@ const AnonymousLetterWidget = () => {
         overflow: 'visible',
       }}
     >
+    <div>익명 편지</div>
       <Stack
         alignItems="center"
         justifyContent="center"

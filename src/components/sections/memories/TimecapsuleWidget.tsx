@@ -5,6 +5,7 @@ import '../../../style/timecapsule.css'
 const TimecapsuleWidget = () => {
   return(
     <Paper sx={{height: 400}}>
+      <div>타임 캡슐</div>
       <Stack
         alignItems="center"
         justifyContent="center"
