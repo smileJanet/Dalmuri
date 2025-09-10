@@ -134,6 +134,8 @@
     animation: textGlow 3s infinite ease-in-out;
     text-transform: uppercase;
     position: relative;
+    width:100%;
+    margin-top: 50px;
 }
 
 .loading-text::after {

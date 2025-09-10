@@ -4,7 +4,7 @@ import TimecapsuleWidget from 'components/sections/memories/TimecapsuleWidget.ts
 const Memories = () => {
   return(
     <Grid container spacing={{ xs: 2.5, sm: 3, lg: 3.75 }}>
-      <Grid item xs={12} xl={4}>
+      <Grid item xs={6} xl={4}>
         <TimecapsuleWidget />
       </Grid>
     </Grid>

@@ -7,13 +7,14 @@ const TodaysWordWidget = () => {
 
   return (
     <Paper sx={{height:400}}>
+      <div>오늘의 한마디</div>
       <Stack
         alignItems="center"
         justifyContent="center"
         sx={{ height: '100%' }}
       >
         <Typography
-          variant="h5"
+          variant="h6"
           fontWeight={500}
           fontFamily={fontFamily.third}
         >

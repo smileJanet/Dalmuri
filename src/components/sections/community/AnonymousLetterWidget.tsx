@@ -8,16 +8,10 @@ const AnonymousLetterWidget = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'))
 
-  const getPaperHeight = () => {
-    if (isMobile) return 'clamp(300px, 50vh, 400px)'
-    if (isTablet) return 'clamp(350px, 45vh, 400px)'
-    return 400
-  }
-
   const getGap = () => {
     if (isMobile) return 1
-    if (isTablet) return 1.5
-    return 2
+    if (isTablet) return 1
+    return 0.2
   }
 
   const getPadding = () => {
@@ -29,10 +23,10 @@ const AnonymousLetterWidget = () => {
   return (
     <Paper
       sx={{
-        height: getPaperHeight(),
+        height: '100%',
         width: '100%',
         maxWidth: '100%',
-        overflow: 'hidden',
+        overflow: 'visible',
       }}
     >
       <Stack
@@ -46,10 +40,10 @@ const AnonymousLetterWidget = () => {
           position: 'relative',
         }}
       >
+        {/* 편지/봉투와 텍스트를 같은 레벨로 분리 */}
         <div className="letter-wrapper">
           <div className="glow-effect-1"></div>
           <div className="glow-effect-2"></div>
-
           <div className="letter-container">
             {/* Floating letters */}
             <div className="floating-letters">
@@ -57,7 +51,6 @@ const AnonymousLetterWidget = () => {
               <div className="letter"></div>
               <div className="letter"></div>
             </div>
-
             {/* Main envelope */}
             <div className="envelope">
               <div className="flap"></div>
@@ -65,7 +58,6 @@ const AnonymousLetterWidget = () => {
               <div className="inner-glow"></div>
             </div>
           </div>
-
           {/* Sparkles */}
           <div className="sparkles">
             <div className="sparkle"></div>
@@ -78,9 +70,6 @@ const AnonymousLetterWidget = () => {
             <div className="sparkle"></div>
           </div>
 
-          <div className="loading-text">
-            Anonymous <br /> Letter
-          </div>
         </div>
 
         <div
