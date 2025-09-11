@@ -11,6 +11,9 @@ const EmotionalDiaryPersonalWidget = () => {
         <div>Emotion Diary Personal Widget</div>
       </Stack>
       <ComfortComp />
+      <div>
+        오늘은 위로가 필요한 날이에요
+      </div>
     </Paper>
   )
 
