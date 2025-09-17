@@ -7,7 +7,7 @@ const EmotionalDiaryPersonalWidget = () => {
     <Paper
       sx={{height: 400}}
     >
-      <div>Emotion Diary Personal Widget</div>
+      <div>감정 일기(기록)</div>
       <Stack
         direction="column"
         spacing={2}

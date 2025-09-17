@@ -7,7 +7,7 @@ const EmotionDiaryPublicWidget = () => {
       sx={{height: 400}}
     >
       <Stack>
-        <div>Emotion Diary Public Widget</div>
+        <div>감정 일기(소통)</div>
       </Stack>
     </Paper>
   )

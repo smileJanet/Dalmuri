@@ -8,6 +8,7 @@ import LoginLayout from 'layouts/login-layout';
 import Splash from 'components/loading/Splash';
 import PageLoader from 'components/loading/PageLoader';
 import { NoTopbarFooterProvider } from 'contexts/NoTopbarFooterContext.tsx'
+import Lottery from 'components/sections/journal/mini-game/Lottery.tsx'
 
 const App = lazy(() => import('App'));
 const Dashboard = lazy(() => import('@/pages/dashboard'));
@@ -108,6 +109,9 @@ const router = createBrowserRouter(
             { path: 'community', element: <Community /> },
             { path: 'chat', element: <Chat />},
             { path: 'memories', element: <Memories /> },
+
+            /* journal */
+            { path:'journal/mini-game/Lottery', element: <Lottery /> },
           ],
         },
         // { // 이렇게 말고

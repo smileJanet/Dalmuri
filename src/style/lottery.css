@@ -1,0 +1,142 @@
+.lottery-container {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 티켓 */
+.ticket {
+    font-family: 'galmuri11';
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 20px 40px;
+    border: 4px solid gold;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #ffd700, #ffae42);
+    color: #ff3b3b;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    animation: float 3s ease-in-out infinite, shine 4s linear infinite;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+}
+
+/* 얌전한 티켓 버튼 */
+/* 티켓 버튼 (작고 얌전하게) */
+.ticket-btn {
+    font-family: 'galmuri11';
+    font-size: 1.5rem; /* 조금 작게 */
+    font-weight: bold;
+    padding: 10px 25px;
+    border: 3px solid gold;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #ffd700, #ffcd6a);
+    color: #ff3b3b;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    cursor: pointer;
+
+    animation: none;
+    position: static;
+    transition: all 0.2s ease-in-out;
+}
+
+.ticket-btn:hover {
+    opacity: 0.9; /* 호버 시 살짝 투명 */
+    transform: scale(1.05); /* 살짝 커지게 */
+}
+
+/* 티켓 보드 */
+.ticket-board {
+    font-family: 'galmuri11';
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* 숫자와 버튼 사이 여백 */
+    padding: 20px 30px;
+    border: 4px solid gold;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #fff8e7, #ffe38a);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    color: #ff3b3b;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.reset-btn {
+    font-family: 'galmuri11';
+    font-size: 1.5rem;
+    padding: 10px 25px;
+    border: 3px solid gold;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #ffd700, #ffcd6a);
+    color: #ff3b3b;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    transition: all 0.2s ease-in-out;
+}
+.reset-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+/* 티켓 떠오르는 애니메이션 */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(3deg); }
+}
+
+/* 티켓 반짝임 */
+@keyframes shine {
+    0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
+    50% { box-shadow: 0 0 40px rgba(255, 255, 150, 1); }
+    100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
+}
+
+/* ✨ 반짝이는 스파클 효과 */
+.sparkle {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sparkle span {
+    position: absolute;
+    width: 150px; /* 조금 더 크게 */
+    height: 150px;
+    background: radial-gradient(
+            circle,
+            rgba(255, 255, 220, 0.6) 20%,  /* 중심은 연한 노란빛 */
+            rgba(255, 255, 220, 0.2) 60%,  /* 중간부는 옅은 빛 */
+            rgba(255, 255, 220, 0) 100%    /* 끝으로 갈수록 완전히 투명 */
+    );
+    border-radius: 50%;
+    animation: twinkle 4s infinite ease-in-out; /* 살짝 길게 */
+    opacity: 0;
+}
+
+/* 랜덤 위치 배치 */
+.sparkle span:nth-child(1) { top: 12%; left: 65%; animation-delay: 0.3s; }
+.sparkle span:nth-child(2) { top: 78%; left: 22%; animation-delay: 1.7s; }
+.sparkle span:nth-child(3) { top: 43%; left: 88%; animation-delay: 0.9s; }
+.sparkle span:nth-child(4) { top: 5%; left: 55%; animation-delay: 2.2s; }
+.sparkle span:nth-child(5) { top: 67%; left: 12%; animation-delay: 0.4s; }
+.sparkle span:nth-child(6) { top: 33%; left: 47%; animation-delay: 1.8s; }
+.sparkle span:nth-child(7) { top: 90%; left: 73%; animation-delay: 0.6s; }
+.sparkle span:nth-child(8) { top: 27%; left: 15%; animation-delay: 2.5s; }
+.sparkle span:nth-child(9) { top: 54%; left: 38%; animation-delay: 1.2s; }
+.sparkle span:nth-child(10) { top: 8%; left: 82%; animation-delay: 0.7s; }
+
+/* 번쩍이는 애니메이션 */
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.5); }
+}

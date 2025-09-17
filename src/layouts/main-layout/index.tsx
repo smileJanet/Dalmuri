@@ -29,6 +29,9 @@ const MainLayout = () => {
     case '/pages/community' : title = '소통하기'; break;
     case '/pages/chat' :title = '채팅하기'; break;
     case '/pages/memories' :title = '추억하기'; break;
+
+    /* journal */
+    case '/pages/journal/mini-game/Lottery' :title='로또 번호 추천 받기'; break;
     default :title = '환영해요 Welcome!';
   }
 
