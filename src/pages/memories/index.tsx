@@ -1,5 +1,6 @@
 import Grid from '@mui/material/Grid'
 import TimecapsuleWidget from 'components/sections/memories/TimecapsuleWidget.tsx'
+import ArchieveWidget from 'components/sections/memories/ArchieveWidget.tsx'
 
 const Memories = () => {
   return(
@@ -18,7 +19,7 @@ const Memories = () => {
         md={6}
         lg={6}
         xl={8}>
-        <TimecapsuleWidget />
+        <ArchieveWidget />
       </Grid>
     </Grid>
   )

@@ -1,19 +1,30 @@
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
-import ComfortComp from 'components/sections/journal/comfortComp.tsx'
+import '../../../style/emotion.css'
 
 const EmotionalDiaryPersonalWidget = () => {
   return (
     <Paper
       sx={{height: 400}}
     >
-      <Stack>
-        <div>Emotion Diary Personal Widget</div>
+      <div>Emotion Diary Personal Widget</div>
+      <Stack
+        direction="column"
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+        sx={{ height: '100%' }}
+      >
+        <div className="emotion-widget">
+          <div className="emotion-face">🤗</div>
+          <div className="emotion-glow glow1"></div>
+          <div className="emotion-glow glow2"></div>
+          <div className="emotion-glow glow3"></div>
+          <div className="emotion-text">
+            오늘은 위로가 필요한 날이에요
+          </div>
+        </div>
       </Stack>
-      <ComfortComp />
-      <div>
-        오늘은 위로가 필요한 날이에요
-      </div>
     </Paper>
   )
 

@@ -125,7 +125,7 @@
 .particle:nth-child(6) { top: 60%; right: 8%; animation-delay: 5s; }
 
 /* 로딩 텍스트 */
-.loading-text {
+.open-capsule-msg {
     color: #fff0f5; /* 연한 핑크 */
     font-size: 16px;
     font-weight: 300;
@@ -136,9 +136,10 @@
     position: relative;
     width:100%;
     margin-top: 50px;
+    text-align: center;
 }
 
-.loading-text::after {
+.open-capsule-msg::after {
     content: '';
     position: absolute;
     bottom: -5px;

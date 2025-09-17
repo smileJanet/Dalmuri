@@ -1,0 +1,81 @@
+.emotion-widget {
+    position: relative;
+    width: 250px;  /* 텍스트 다 들어갈 정도로 넓힘 */
+    height: auto;  /* 세로는 내용에 맞게 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* 세로 배치 */
+    margin: 50px auto;
+}
+
+.emotion-face {
+    font-size: 4.5rem;
+    z-index: 2;
+    animation: bounce 3s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* 마법소녀 느낌 글로우 */
+.emotion-glow {
+    position: absolute;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    transform: translate(0%, 0%);
+    left: 20%;
+    z-index: 1;
+    animation: glowMove 5s infinite ease-in-out;
+    opacity: 0.7;
+    filter: blur(20px);
+}
+
+.emotion-text {
+    color: #fff0f5; /* 연한 핑크 */
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    opacity: 0.8;
+    animation: textGlow 3s infinite ease-in-out;
+    text-transform: uppercase;
+    position: relative;
+    width:100%;
+    margin-top: 10px;
+    text-align: center;
+ }
+
+.emotion-text::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e6e6fa, transparent); /* 연한 라벤더 */
+    animation: lineGlow 2s infinite ease-in-out;
+}
+
+.glow1 {
+    background: radial-gradient(circle, #7ecbffAA, #2fa2ff55, transparent); /* 밝은 블루 계열 */
+    animation-delay: 0s;
+}
+
+.glow2 {
+    background: radial-gradient(circle, #d3aefcAA, #a150f255, transparent); /* 보라 계열 */
+    animation-delay: 1.5s;
+}
+
+.glow3 {
+    background: radial-gradient(circle, #94ebc0AA, #4fdea155, transparent); /* 연두/민트 계열 */
+    animation-delay: 3s;
+}
+
+@keyframes glowMove {
+    0%   { transform: translate(0%, 0%) scale(1.0) translate(0, 10px); opacity:0.5; }
+    50%  { transform: translate(0%, 0%) scale(1.2) translate(0,-25px); opacity:0.8; }
+    100% { transform: translate(0%, 0%) scale(1.5) translate(0,0); opacity:0.5; }
+}

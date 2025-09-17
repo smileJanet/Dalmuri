@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid'
 import EmotionalDiaryPersonalWidget from 'components/sections/journal/EmotionDiaryPersonalWidget.tsx'
-import Box from '@mui/material/Box'
+import MinigameWidget from 'components/sections/journal/MinigameWidget.tsx'
 
 const Journal = () => {
   return(
@@ -8,26 +8,22 @@ const Journal = () => {
       <Grid
         item
         xs={12}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={6}
         xl={4}
-        sx={{ display: 'flex' }}
       >
-        <Box
-          sx={{
-           height: {
-             xs: 'auto',
-             sm: 230,
-             md: 230,
-             lg: 250,
-             xl: 250,
-           },
-           width: '100%',
-           display: 'flex',
-           flexDirection: 'column'
-          }}
-        >
-          <EmotionalDiaryPersonalWidget />
-        </Box>
+        <EmotionalDiaryPersonalWidget />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={6}
+        lg={6}
+        xl={8}
+      >
+        <MinigameWidget />
       </Grid>
     </Grid>
   )

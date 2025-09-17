@@ -39,8 +39,10 @@ const TimecapsuleWidget = () => {
             <div className="particle"></div>
           </div>
 
-          <div className="loading-text">Time Capsule</div>
-          <div> 다음 캡슐 오픈까지 : 00시간 00분 00초 남아따!</div>
+          <div className="open-capsule-msg">
+            다음 캡슐 오픈까지 <br/>
+            00시간 00분 00초 남았어요
+          </div>
         </div>
       </Stack>
     </Paper>

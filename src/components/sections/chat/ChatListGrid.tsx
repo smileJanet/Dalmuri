@@ -122,13 +122,6 @@ const ChatListGrid = () => {
       <Stack spacing={1}>
         <Box sx = {{
           width:'100%',
-          height: {
-            xs: 600,
-            sm: 700,
-            md: 700,
-            lg: 700,
-            xl: 750,
-          }
         }}>
           <DataGrid
             rows={rows}
@@ -138,6 +131,8 @@ const ChatListGrid = () => {
             disableRowSelectionOnClick
             disableColumnMenu
             disableColumnResize
+            autoHeight
+            hideFooter
             sx={{
               '& .MuiDataGrid-columnHeaderTitle': {
                 fontSize: { xs: '0.7rem', md: '1.1rem' },
