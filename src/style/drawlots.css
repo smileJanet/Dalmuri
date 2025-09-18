@@ -1,0 +1,314 @@
+.drawLots-container {
+    width: clamp(350px, 80vw, 90vw);
+    height: clamp(300px, 60vh, 60vh);
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+
+    /* 나무 색 계열 */
+    background-color: #8b5e3c;
+    background-image:
+        /* 판자 무늬 */
+            repeating-linear-gradient(
+                    to right,
+                    rgba(0,0,0,0.1) 0px,
+                    rgba(0,0,0,0.1) 2px,
+                    transparent 2px,
+                    transparent 100px
+            ),
+                /* 나뭇결 같은 결 무늬 */
+            repeating-linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0.05) 0px,
+                    rgba(255,255,255,0.05) 3px,
+                    transparent 3px,
+                    transparent 15px
+            ),
+            linear-gradient(135deg, #8b5e3c, #d2a679, #a9744f);
+    background-size: auto, auto, cover;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.before-start {
+    background-color: #a9744f;
+    font-family: 'galmuri11';
+    color: #fff;
+    font-size: clamp(16px, 2vw, 24px);
+    font-weight: bold;
+    width: clamp(120px, 25vw, 180px);
+    height: clamp(50px, 8vh, 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 2px solid #8b5e3c;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 -3px 0 rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    user-select: none;
+    text-align: center;
+}
+
+.before-start:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4), inset 0 -3px 0 rgba(0,0,0,0.1);
+    background-color: #b48760;
+}
+
+.before-start:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 -3px 0 rgba(0,0,0,0.1);
+}
+
+.after-start {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.lots-range {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(14px, 2vw, 20px);
+    color: #fff;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lots-range button {
+    background: #a9744f;
+    color: white;
+    border: 1px solid #8b5e3c;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lots-range button:hover {
+    background: #b48760;
+}
+
+.lots-range input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #8b5e3c;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: clamp(14px, 2vw, 18px);
+}
+
+.lots {
+    display: flex;
+    gap: clamp(8px, 2vw, 25px);
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 95%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.lot {
+    width: clamp(50px, 12vw, 80px);
+    height: clamp(75px, 18vw, 120px);
+    background: linear-gradient(145deg, #fdfdfd, #f8f8f8, #ffffff);
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow:
+            inset -3px 0 8px rgba(0,0,0,0.05),
+            0 4px 12px rgba(0,0,0,0.15),
+            0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.lot:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow:
+            inset -3px 0 8px rgba(0,0,0,0.08),
+            0 8px 20px rgba(0,0,0,0.2),
+            0 4px 8px rgba(0,0,0,0.15);
+    border-color: #bbb;
+}
+
+.lot-input {
+    width: 85%;
+    height: 50%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: clamp(11px, 2.2vw, 16px);
+    color: #333;
+    outline: none;
+    font-family: 'galmuri11', monospace;
+    border-bottom: 1px solid #ddd;
+    padding: 4px 2px;
+    transition: border-color 0.2s;
+    line-height: 1.2;
+}
+
+.lot-input:focus {
+    border-bottom-color: #007acc;
+    background: rgba(0, 122, 204, 0.02);
+}
+
+.lot:has(.lot-input:focus) {
+    transform: translateY(-4px) scale(1.02);
+    border-color: #007acc;
+}
+
+/* 섞기 버튼 - 나무 테마에 맞는 디자인 */
+.mix-btn {
+    background: linear-gradient(145deg, #d4a574, #b8935f, #a0804d);
+    font-family: 'galmuri11', sans-serif;
+    color: #fff;
+    font-size: clamp(14px, 2.5vw, 20px);
+    font-weight: bold;
+    width: clamp(100px, 20vw, 140px);
+    height: clamp(40px, 7vh, 55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 3px solid #8b5e3c;
+    box-shadow:
+            0 6px 12px rgba(0,0,0,0.25),
+            inset 0 1px 0 rgba(255,255,255,0.2),
+            inset 0 -2px 0 rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.mix-btn:hover {
+    transform: translateY(-3px) rotate(1deg);
+    box-shadow:
+            0 10px 20px rgba(0,0,0,0.3),
+            inset 0 1px 0 rgba(255,255,255,0.25),
+            inset 0 -2px 0 rgba(0,0,0,0.1);
+    background: linear-gradient(145deg, #ddb082, #c19d6b, #ab8756);
+    border-color: #7a5232;
+
+    animation: mixShake 0.5s ease-in-out;
+}
+
+.mixing{
+    font-size: clamp(16px, 2vw, 24px);
+}
+
+.lot-picked {
+    width: 85%;
+    height: 50%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: clamp(11px, 2.2vw, 16px);
+    color: #333;
+    outline: none;
+    font-family: 'galmuri11', monospace;
+    padding: 4px 2px;
+    transition: border-color 0.2s;
+}
+
+.reset {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.reset:hover {
+    background-color: #ff4b4b;
+    transform: scale(1.05);
+}
+
+@media (max-width: 480px) {
+    .lot {
+        width: clamp(45px, 15vw, 70px);
+        height: clamp(70px, 22vw, 105px);
+        padding: 6px;
+    }
+
+    .lot-input {
+        font-size: clamp(10px, 3vw, 14px);
+        height: 45%;
+    }
+
+    .mix-btn {
+        width: clamp(90px, 25vw, 120px);
+        height: clamp(35px, 8vh, 45px);
+        font-size: clamp(12px, 3vw, 16px);
+        border-width: 2px;
+    }
+
+    .mix-btn::before {
+        font-size: clamp(12px, 3vw, 14px);
+        margin-right: 4px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .lot {
+        width: clamp(55px, 13vw, 75px);
+        height: clamp(80px, 20vw, 115px);
+    }
+
+    .lot-input {
+        font-size: clamp(12px, 2.5vw, 15px);
+    }
+
+    .mix-btn {
+        width: clamp(110px, 22vw, 130px);
+        height: clamp(42px, 7.5vh, 50px);
+    }
+}
+
+@media (min-width: 769px) {
+    .lot {
+        width: clamp(65px, 11vw, 80px);
+        height: clamp(95px, 17vw, 120px);
+    }
+
+    .lot-input {
+        font-size: clamp(13px, 2vw, 16px);
+    }
+}
+
+/* 5개가 한 줄에 들어가도록 계산된 최적화 */
+@media (min-width: 400px) {
+    .lots {
+        /* 5개 제비 + 4개 gap이 100% 안에 들어가도록 */
+        gap: min(3vw, 15px);
+    }
+}

@@ -1,5 +1,6 @@
 import '../../../../style/lottery.css'
 import { useState } from 'react'
+import Stack from '@mui/material/Stack'
 
 /*
 * [랜덤값 공식 : 시작수 더하고 끝수 곱하고]
@@ -11,10 +12,8 @@ import { useState } from 'react'
 * Math.random()은 0 ~ 1사이 반환
 * Math.floor()은 소숫점 버림
 *
-* */
-
-/*
-* do ~ while
+*  ===============================================================
+* [do ~ while 조건문]
 * (1) do 블록 안의 코드는 무조건 1번은 실행
 * (2) 그 다음 while문 실행
 * (3) - 1 : 조건이 true라면 do블록 반복
@@ -58,47 +57,54 @@ const Lottery = () => {
   }
 
   return(
-    <div className="lottery-container">
-      {!isComplete && !isFlag && (
-        <div
-          className= "ticket"
-          onClick= {handleLottery}
-        >
-          TICKET
-        </div>
-      )}
-
-      {!isComplete && isFlag && (
-        <div className="ticket-board">
-          {index}번째 숫자 : {result[index - 1]}
+    <Stack
+      spacing={2}
+      alignItems="center"
+      justifyContent="center"
+      sx={{ height: '100%' }}
+    >
+      <div className="lottery-container">
+        {!isComplete && !isFlag && (
           <div
-            className= "ticket-btn"
+            className= "ticket"
             onClick= {handleLottery}
           >
             TICKET
           </div>
-        </div>
-      )}
+        )}
 
-      {isComplete && (
-        <div className="ticket-board">
-          <div>🎉 완성된 번호: {result.join(', ')}</div>
-          <button className="reset-btn" onClick={handleReset}>다시 뽑기</button>
+        {!isComplete && isFlag && (
+          <div className="ticket-board">
+            {index}번째 숫자 : {result[index - 1]}
+            <div
+              className= "ticket-btn"
+              onClick= {handleLottery}
+            >
+              TICKET
+            </div>
+          </div>
+        )}
+
+        {isComplete && (
+          <div className="ticket-board">
+            <div>🎉 완성된 번호: {result.join(', ')}</div>
+            <button className="reset-btn" onClick={handleReset}>다시 뽑기</button>
+          </div>
+        )}
+        <div className="sparkle">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-      )}
-      <div className="sparkle">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
       </div>
-    </div>
+    </Stack>
   )
 }
 

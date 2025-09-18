@@ -9,6 +9,7 @@ import Splash from 'components/loading/Splash';
 import PageLoader from 'components/loading/PageLoader';
 import { NoTopbarFooterProvider } from 'contexts/NoTopbarFooterContext.tsx'
 import Lottery from 'components/sections/journal/mini-game/Lottery.tsx'
+import DrawLots from 'components/sections/journal/mini-game/DrawLots.tsx'
 
 const App = lazy(() => import('App'));
 const Dashboard = lazy(() => import('@/pages/dashboard'));
@@ -112,6 +113,7 @@ const router = createBrowserRouter(
 
             /* journal */
             { path:'journal/mini-game/Lottery', element: <Lottery /> },
+            { path:'journal/mini-game/DrawLots', element: <DrawLots /> },
           ],
         },
         // { // 이렇게 말고

@@ -32,6 +32,7 @@ const MainLayout = () => {
 
     /* journal */
     case '/pages/journal/mini-game/Lottery' :title='로또 번호 추천 받기'; break;
+    case '/pages/journal/mini-game/DrawLots' :title='제비 뽑기'; break;
     default :title = '환영해요 Welcome!';
   }
 
