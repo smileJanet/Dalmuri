@@ -49,6 +49,13 @@ const MinigameWidget = () => {
       path: 'draw-lots',
     },
     {
+      id: 'Gomoku',
+      icon: 'mdi:gamepad-circle-right',
+      color : '#FFFFFF',
+      name : '오목',
+      path: 'gomoku',
+    },
+    {
       id: 'AnswerNoelly',
       icon: 'mingcute:ai-line',
       color: '#1589e5',
