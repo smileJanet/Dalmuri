@@ -1,4 +1,5 @@
 import '../../../../style/gomokuboard.css'
+import { GomokuBoardProps } from 'components/sections/journal/mini-game/Gomoku.tsx'
 
 /*
 * [2차원 배열]
@@ -6,14 +7,9 @@ import '../../../../style/gomokuboard.css'
 *
 * */
 
-const GomokuBoard = () => {
+const GomokuBoard = ({stone, placeStone}:GomokuBoardProps) => {
   const BOARD_SIZE = 15
   const board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null))
-
-  function handleSetStone(e: React.MouseEvent<HTMLDivElement>) {
-    const { rowIndex, colIndex } = e.currentTarget.dataset
-    console.log(`row: ${rowIndex}, col: ${colIndex}`)
-  }
 
   return (
     <div className="gomoku-board" style={{
@@ -29,20 +25,36 @@ const GomokuBoard = () => {
       backgroundColor: '#deb887',
     }}>
       {board.map((_, rowIdx) =>
-        board.map((_, colIdx) => (
-          <div
-            key={`${rowIdx}${colIdx}`}
-            className='gomoku-cell'
-            style={{
-              border: '1px solid #8b5e3c',
-              boxSizing: 'border-box',
-            }}
-            onClick={handleSetStone}
-            data-row-index={rowIdx}
-            data-col-index={colIdx}
-          >
-          </div>
-        ))
+        board.map((_, colIdx) => {
+          const _stone = stone.find(s => s.x === colIdx && s.y === rowIdx)
+          return (
+            <div
+              key={`${rowIdx}${colIdx}`}
+              className='gomoku-cell'
+              style={{
+                border: '1px solid #8b5e3c',
+                boxSizing: 'border-box',
+                display: 'flex',          
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onClick={() => placeStone(colIdx, rowIdx)}
+            >
+              {
+                _stone && (
+                  <div
+                    style={{
+                      width: '80%',
+                      height: '80%',
+                      borderRadius: '50%',
+                      backgroundColor: _stone.color
+                    }}
+                  ></div>
+                )
+              }
+            </div>
+          )
+        })
       )}
     </div>
   )
