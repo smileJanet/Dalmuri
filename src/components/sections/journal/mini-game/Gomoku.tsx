@@ -55,6 +55,11 @@ const Gomoku = () => {
   * 6. 상대의 돌이 3개 연속인 경우 반드시 옆에 둬야 함(=막아야 함)
   *   -> 상대의 돌이 x, y, 대각선 좌표가 연속으로 3개인 경우
   * 
+  * 
+  * [더 어렵게 만들어볼려면]
+  * 1. 나, 컴퓨터간 승률 계산
+  * 2. 승률에 따라 defensive할지 aggressive할지 자동으로 변경됨
+  * 
   * */
   const blackSetStone = (currentStone :typeof stone) => {
     //  점수 배열
