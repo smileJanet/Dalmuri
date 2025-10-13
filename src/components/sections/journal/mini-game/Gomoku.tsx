@@ -12,27 +12,49 @@ const Gomoku = () => {
   const BOARD_SIZE = 15
   const [stone, setStone] = useState<{x:number, y:number, color: 'black' | 'white'}[]>([])
   const [turn, setTurn] = useState<'black' | 'white'>('white')
-  const [win, setWin] = useState<'black' | 'white' | null>(null)
+  const [win, setWin] = useState<'black' | 'white' | 'draw' | null>(null)
+
+  // 기존: stone을 통해 1차원 배열을 계속 update
+  // 현재: boardGrid를 통해 stone을 2차원 배열에 보관
+  const createBoardGrid = (currentStone: typeof stone) => {
+    // 빈 보드 생성
+    const grid: ('black' | 'white' | null)[][] = Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(null))
+
+    // 돌의 이치를 O(1)접근이 가능한 2차원 배열에 저장
+    for (const s of currentStone) {
+      grid[s.x][s.y] = s.color
+    }
+    return grid
+  }
 
   const handlePlaceStone = (x: number, y:number) => {
-    if(turn !== 'white') return
+    // 1. min(beta, 상대)턴이 아니거나 이미 승자가 있다면 종료
+    if(turn !== 'white' || win !== null) return
 
-    // 이미 돌이 있는 칸인지 두기
+    // 2. 이미 돌이 있는 칸인지 확인
     if(stone.some(s => s.x === x && s.y === y)) return
 
-    // 돌을 칸에 두기
+    // 3. 돌을 칸에 두고 상태 업데이트
     const newStone = [...stone, {x, y, color: 'white' as const}]
     setStone(newStone)
 
-    // 방금 둔 그 돌이 우승 돌인지?
-    if (chkWin(x, y, 'white', newStone)) {
+    // 4. 방금 둔 그 돌이 우승 돌인지 확인
+    const newGrid = createBoardGrid(newStone)
+
+    if (chkWin(x, y, 'white', newGrid)) {
       setWin('white')
+      return
+    }
+
+    if (isGameOver(newGrid) === 'draw') {
+      setWin('draw')
       return
     }
 
     // 컴퓨터(black)에 차례 맡기기
     setTurn('black')
     setTimeout(() => {
+      // setBlackStone에서 1차원 배열(newStone)을 전달하여 setBlackStone 내부에서 2차원 Grid를 생성하는 것이 일반적
       setBlackStone(newStone)
     }, 500)
 
@@ -43,7 +65,7 @@ const Gomoku = () => {
     x:number,
     y:number,
     color: 'black' | 'white',
-    stone : {x: number, y: number, color: 'black' | 'white'}[],
+    boardGrid: ('black' | 'white' | null)[][]
   ) => {
 
     // 보드 상태(=돌 놓인 위치) 조회
@@ -79,8 +101,13 @@ const Gomoku = () => {
     *
     *
     * */
-    const getStone = new Map(stone.map(s => [`${s.x},${s.y}`, s.color]))
-    getStone.set(`${x},${y}`, color)
+    
+    // 기존 : 함수 실행마다 새로운 map을 그려야 해서 성능 떨어짐
+    // const getStone = new Map(stone.map(s => [`${s.x},${s.y}`, s.color]))
+    // getStone.set(`${x},${y}`, color)
+    
+    const originalColor = boardGrid[x][y]
+    boardGrid[x][y] = color // 가상의 돌
 
     // 방향 정하기
     const directions = [
@@ -108,7 +135,13 @@ const Gomoku = () => {
 
       let nx = x + dx  // 다음 가로위치
       let ny = y + dy  // 다음 세로위치
-      while (getStone.get(`${nx},${ny}`) === color) { // 각 좌표마다 같은색 돌 있는지 확인하는 조건
+      while (
+        nx >= 0 &&
+        nx < BOARD_SIZE &&
+        ny >= 0 &&
+        ny < BOARD_SIZE &&
+        boardGrid[nx][ny] === color
+        ) { // 각 좌표마다 같은색 돌 있는지 확인하는 조건
         count++  // 하나 찾으면 추가
         nx += dx // 더 멀리 이동
         ny += dy //     "
@@ -116,7 +149,13 @@ const Gomoku = () => {
 
       nx = x - dx  // 반대 방향 가로
       ny = y - dy  // 반대 방향 세로
-      while (getStone.get(`${nx},${ny}`) === color) { // 각 좌표마다 같은색 돌을 찾는다면
+      while (
+        nx >= 0 &&
+        nx < BOARD_SIZE &&
+        ny >= 0 &&
+        ny < BOARD_SIZE &&
+        boardGrid[nx][ny] === color
+        ) { // 각 좌표마다 같은색 돌을 찾는다면
         count++   // 하나 찾으면 추가
         nx -= dx  // 더 멀리 이동
         ny -= dy  //     "
@@ -125,7 +164,7 @@ const Gomoku = () => {
       if(count >= maxCnt) maxCnt = count
 
     }
-
+    boardGrid[x][y] = originalColor
     return maxCnt
   }
 
@@ -134,9 +173,9 @@ const Gomoku = () => {
     x:number,
     y:number,
     color: 'black' | 'white',
-    stone : {x: number, y: number, color: 'black' | 'white'}[],
+    currentGrid : ('black' | 'white' | null)[][],
   ) => {
-    return calculateStone(x, y, color, stone) >= 5
+    return calculateStone(x, y, color, currentGrid) >= 5
   }
 
   // 돌 세팅
@@ -162,13 +201,16 @@ const Gomoku = () => {
 
     //////////////////////////////////////////
 
-    // 선택한 칸에 돌 두기
+    // 3. 선택한 칸에 돌 두고 1차원 배열 생성(기존 로직)
     const newStone = [...currentStone, { x: best.x, y: best.y, color: 'black' as const }]
     setStone(newStone)
     setTurn('white')
 
+    // + 4. Grid 생성
+    const newGrid = createBoardGrid(newStone)
+
     // 같은 stone이 연속으로 5개 있으면 true / false
-    if(chkWin(best.x, best.y, 'black', newStone)) {
+    if(chkWin(best.x, best.y, 'black', newGrid)) {
       setWin('black')
       return
     }
@@ -276,25 +318,37 @@ const Gomoku = () => {
   const MAX_DEPTH = 3 // 탐색 깊이 **3수 앞까지 예측할 것**
 
   // 게임이 종료되었는지 확인, 승자가 있다면 해당 색상을 반환하는 함수
-  const isGameOver = (currentStone: typeof stone) => {
-    // 1. 모든 돌이 5목을 달성했을 때
-    for (const stone of currentStone) {
-      if (calculateStone(stone.x, stone.y, stone.color, currentStone) >= 5) {
-        return stone.color
+  const isGameOver = (currentGrid: ('black' | 'white' | null)[][],) => {
+    let stoneCount = 0 // 무승부 판정을 위한 돌의 총 개수
+
+    // 1. 모든 돌이 5목을 달성한 경우
+    for (let x = 0; x < BOARD_SIZE; x++) {
+      for (let y = 0; y < BOARD_SIZE; y++) {
+        const color = currentGrid[x][y]
+
+        // (1) 돌이 있는 칸만 검사
+        if (color !== null) {
+          stoneCount++
+
+          if (calculateStone(x, y, color, currentGrid) >= 5) {
+            return color
+          }
+        }
       }
     }
     
-    // 2. 무승부(Draw)
-    if (currentStone.length === BOARD_SIZE * BOARD_SIZE) return '무승부'
+    // 2. 무승부(Draw)인 경우
+    if (stoneCount === BOARD_SIZE * BOARD_SIZE) return 'draw'
+    // setWin('draw')
 
     // 3. 게임 진행중인 경우
     return null
 
   }
 
-  const calculateScore = (currentStone: typeof stone, alphaColor: 'white' | 'black'): number => {
+  const calculateScore = (currentGrid: ('black' | 'white' | null)[][], alphaColor: 'white' | 'black'): number => {
     // 1. 종료 상태 점수
-    const winner = isGameOver(currentStone)
+    const winner = isGameOver(currentGrid)
     if (winner === alphaColor) return 100 // 컴퓨터 승리
     if (winner !== null) return -100 // 상대(사람) 승리
 
@@ -306,17 +360,17 @@ const Gomoku = () => {
 
     for (let x = 0; x < BOARD_SIZE; x++) {
       for (let y = 0; y < BOARD_SIZE; y++) {
-        if (currentStone.some(s => s.x === x && s.y === y)) continue
+        if(currentGrid[x][y] !== null) continue
 
         // (1) 컴퓨터(alpha, max)가 이 칸에 놓았을 때 잠재적 점수
         let maxScore = 0
-        const maxCount = calculateStone(x, y, 'black', currentStone)
+        const maxCount = calculateStone(x, y, 'black', currentGrid)
         if (maxCount === 4) maxScore = 80
         else if (maxCount === 3) maxScore = 30
         
         // (2) 상대(beta, min)가 이 칸에 놓았을 때의 잠재적 함수
         let minScore = 0
-        const minCount = calculateStone(x, y, 'white', currentStone)
+        const minCount = calculateStone(x, y, 'white', currentGrid)
         if(minCount === 4) minScore = 90
         else if (minCount === 3) minScore = 40
         
@@ -330,30 +384,42 @@ const Gomoku = () => {
   }
 
   // 유효한 수(돌이 놓인 곳 주변 1~2칸)만 찾아서 배열로 반환하는 함수(필수 최적화)
-  const findMove = (currentStone: typeof stone) => {
-    if (currentStone.length === 0) {
-      // 첫 수일 경우 중앙 반환
+  const findMove = (currentGrid: ('black' | 'white' | null)[][]) => {
+    let stoneCount = 0
+    const occupied = []
+
+    // 1. Grid를 순회하며 돌의 개수를 세고, 돌의 위치를 저장
+    for (let x = 0; x < BOARD_SIZE; x++) {
+      for (let y = 0; y < BOARD_SIZE; y++) {
+        if (currentGrid[x][y] !== null) {
+          stoneCount++
+          occupied.push({ x, y }) // 돌이 놓인 놓인 좌표만 저장
+        }
+      }
+    }
+
+    // 2. 첫 수일 경우 중앙 반환
+    if (stoneCount === 0) {
       const centre = Math.floor(BOARD_SIZE / 2)
       return [{ x: centre, y: centre }]
     }
 
     const possible = new Set<string>()
-    const stoneMap = new Map(currentStone.map(s => [`${s.x}, ${s.y}`, s.color]))
-    
-    // 모든 돌 주변 탐색
-    for (const s of currentStone) {
+
+    // 3. 저장된 돌의 위치만 순회하여 이웃 탐색
+    for (const { x, y } of occupied) {
       for (let dx = -1; dx <= 1; dx++) {
         for (let dy = -1; dy <= 1; dy++) {
           if (dx === 0 && dy === 0) continue
 
-          const nx = s.x + dx
-          const ny = s.y + dy
+          const nx = x + dx
+          const ny = y + dy
 
           // 보드 경계 체크
           if (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE) {
             // 빈칸인지 체크
-            if (!stoneMap.has(`${nx}, ${ny}`)){
-              possible.add(`${nx}, ${ny}`)
+            if (currentGrid[nx][ny] === null) {
+              possible.add(`${nx},${ny}`)
             }
           }
 
@@ -363,15 +429,28 @@ const Gomoku = () => {
 
     // Set을 {x, y} 객체 배열로 변환
     return Array.from(possible).map(key => {
-      const [ xStr, yStr ] = key.split(', ')
+      const [ xStr, yStr ] = key.split(',')
       return { x: parseInt(xStr), y: parseInt(yStr)}
     })
 
   }
 
-  // 재귀 탐색 + 가지 치기 = 미니맥스 함수
+  /*
+  * [매우 중요!!!!!]
+  * 미니맥스 함수 = 재귀 + 가지 치기
+  *
+  * 1. 종료 조건을 작성(기저 조건)
+  *    게임이 끝날 경우 점수 계산을 위한 평가 함수를 호출하는 로직을 작성한다
+  *
+  * 2. Max 플레이어 턴
+  *    가장 작은 값으로 시작해서 점점 최댓값을 찾아간다.
+  *
+  * 3. Min 플레이어 턴
+  *    가장 큰 값으로 시작해서 점점 최솟값을 찾아간다.
+  *
+  * */
   const miniMax = (
-    currentStone : typeof stone,
+    currentGrid: ('black' | 'white' | null)[][],
     depth: number,
     alpha: number,  // Max 플레이어가 확보한 최소 점수
     beta: number,   // Min 플레이어게 확보한 최대 점수
@@ -379,32 +458,40 @@ const Gomoku = () => {
   ): number => {
 
     /*
-    * 1. 종료 조건
+    * 1. 종료 조건 : Base Case
     * (1) 설정된 깊이에 도달했거나(더이상 예측할 필요가 없거나, 3까지 도달)
     * (2) 승패가 결정된 경우(게임 종료)
     * */
-    if(depth === 0 || isGameOver(currentStone) !== null) {
+    if(depth === 0 || isGameOver(currentGrid) !== null) {
       // 탐색 끝이나 게임 종료 시 평가 함수 호출
-      return calculateScore(currentStone, 'black')
+      return calculateScore(currentGrid, 'black')
     }
 
     /*
     * 2. 둘 수 있는 가능한 모든 수 찾기
+    * -> 미니맥스 : Max 플레이어는 가장 높은 점수를 택한다.
+    *              Min 플레이어는 가장 낮은 점수를 택한다.
     * */
-    const possible = findMove(currentStone)
+    const possible = findMove(currentGrid)
     if (isAorB) {
       // (1) Max턴 : 점수 최대화
       let maxScore = -Infinity
 
       for (const {x, y} of possible) {
-        // 임의의 수 두기
-        const newStone = [...currentStone, {x, y, color: 'black' as const}]
+        /*
+        * (1) - 1 : currentGrid(원본)을 건드리지 않고 clone deep을 통해 상태 복사
+        * const nextGrid = [...currentGrid]만 쓰면,
+          2차원 배열의 “겉 껍질”만 복사되고, 안의 각 row 배열들은 여전히 원본을 참조
+        * */
+        const nextGrid = currentGrid.map(row => [...row])
+        // (1) - 2 : 임의의 수 두기
+        nextGrid[x][y] = 'black'
 
-        // 다음 단계 재귀 호출(상대방 턴으로 전환)
-        const evaluation = miniMax(newStone, depth -1, alpha, beta, false)
+        // (1) -3 : 다음 단계 재귀 호출(상대방 턴으로 전환)
+        const evaluation = miniMax(nextGrid, depth -1, alpha, beta, false)
         maxScore = Math.max(maxScore, evaluation)
         
-        // alpha(Max 점수) 업데이트 및 가지 치기
+        // (1) - 4 : alpha(Max 점수) 업데이트 및 가지 치기
         alpha = Math.max(alpha, maxScore)
         if (beta <= alpha) { // 상대의 점수보다 내(컴퓨터) 점수가 같거나 높을 것 같으면
           break // 그 밑에 있는 확률은 계산 안함. 가지치기 지점
@@ -417,14 +504,16 @@ const Gomoku = () => {
       let minScore = Infinity
       
       for (const {x, y} of possible) {
-        // 임의의 수 두기
-        const newStone = [...currentStone, {x, y, color: 'white' as const}]
+        // (2) - 1 : currentGrid(원본)을 건드리지 않고 clone deep을 통해 상태 복사
+        const nextGrid = currentGrid.map(row => [...row])
+        // (2) - 2 : 임의의 수 두기
+        nextGrid[x][y] = 'white'
 
-        // 다음 단계 재귀 호출(컴퓨터 턴으로 전환)
-        const evaluation = miniMax(newStone, depth -1, alpha, beta, true)
+        // (2) - 3 : 다음 단계 재귀 호출(컴퓨터 턴으로 전환)
+        const evaluation = miniMax(nextGrid, depth -1, alpha, beta, true)
         minScore = Math.min(minScore, evaluation)
         
-        // beta(Min 점수) 업데이트 및 가지치기
+        // (2) - 4 : beta(Min 점수) 업데이트 및 가지치기
         beta = Math.min(beta, minScore)
         if (beta <= alpha) { // 컴퓨터 점수보다 사람 점수가 낮을 것 같으면 -> 컴퓨터가 이긴다
           break // 가지치기 지점!
@@ -439,32 +528,48 @@ const Gomoku = () => {
   // 최적의 수 선택하는 함수
   const pruningScoreBlackStone = (currentStone: typeof stone) => {
     // 단순한 점수 배열을 반환하지 않고 주어진 깊이(Depth) 내에서 탐색하여 찾은 최적의 점수를 변환하여 설계하여야 한다.
-    const possible = findMove(currentStone)
+    // 1. 최초 1회 : boardGrid 생성
+    const initGrid = createBoardGrid(currentStone)
 
-    // 1. 모든 후보 수의 단일 평가 점수를 계산
-    const scoredMoves = possible.map(({ x, y }) => ({
-      x,
-      y,
-      score: calculateScore([...currentStone, { x, y, color: 'black' as const}], 'black')
-    }))
+    const possible = findMove(initGrid)
+
+    // 2. 모든 후보 수의 단일 평가 점수를 계산
+    const scoredMoves = possible.map(({ x, y }) => {
+      // 단일 평가를 위해 Grid복사 및 가상으로 돌 두기
+      const templeGrid = initGrid.map(row => [...row])
+      templeGrid[x][y] = 'black'
+
+      return {
+        x,
+        y,
+        score: calculateScore(templeGrid, 'black')
+      }
+    })
     
-    // 2. 점수가 높은 순으로 정렬하고, 상위 N개만 선택
+    // 3. 점수가 높은 순으로 정렬하고, 상위 N개만 선택
     const topNMoves = scoredMoves
       .sort((a, b) => b.score - a.score)
       .slice(0, 20)
 
-    // 3. 상위 N개에 대해서만 미니맥스-알파베타 가지치기 탐색 수행
+    // 4. 상위 N개에 대해서만 미니맥스-알파베타 가지치기 탐색 수행 = '휴리스틱 최적화'
+    /*
+    * 휴리스틱 : 완벽한 방법은 아니지만 빠르고 효율적인 최선의 방법
+    * 휴리스틱의 핵심 : "명백히 나쁜 수는 굳이 깊게 생각하지 말자!"
+    *
+    * ex) 모든 것을 탐색하진 못하고 상위 N개만 탐색하지만, 그대신 빠른 속도는 유지할 수 있으므로 "완벽한 방법은 아니지만 최선의 방법이었다!"
+    * */
     let maxScore = -Infinity
     let best = { x: -1, y: -1 }
 
     // 상위 N개에 대해서 탐색할 후보 수 찾기
     for(const {x, y} of topNMoves) {
-      // Max가 가상으로 돌을 둠
-      const newStone = [...currentStone, {x:x, y:y, color: 'black' as const}]
+      // Max가 가상으로 돌을 둠 - 임시로 존재하는 보드 상태이므로 miniMax 호출 시 버려짐
+      const nextGrid = initGrid.map(row => [...row])
+      nextGrid[x][y] = 'black'
       
       // MinMax 알고리즘 호출
       // Max 플레이어(컴퓨터)가 수를 둔 상태이므로, 다음은 Min 플레이어(사람) 턴이다(false)
-      const score = miniMax(newStone, MAX_DEPTH -1, -Infinity, Infinity, false)
+      const score = miniMax(nextGrid, MAX_DEPTH -1, -Infinity, Infinity, false)
 
       // 가장 높은 점수를 주는 수를 선택
       if(score > maxScore) {
@@ -486,7 +591,7 @@ const Gomoku = () => {
         {win && (
           <div className="overlay">
             <div className="modal">
-              <h2>{win === 'black' ? 'Black' : 'White'} 가 이겼습니다!</h2>
+              <h2>{win === 'draw' ? '무승부입니다.' : `${win}가 이겼습니다.`}</h2>
               <button onClick={() => {
                 setStone([])
                 setTurn('white')
