@@ -11,6 +11,7 @@ import { NoTopbarFooterProvider } from 'contexts/NoTopbarFooterContext.tsx'
 import Lottery from 'components/sections/journal/mini-game/Lottery.tsx'
 import DrawLots from 'components/sections/journal/mini-game/DrawLots.tsx'
 import Gomoku from 'components/sections/journal/mini-game/Gomoku.tsx'
+import MainEdiary from 'components/sections/journal/emotion-diary-personal/MainEdiary.tsx'
 
 const App = lazy(() => import('App'));
 const Dashboard = lazy(() => import('@/pages/dashboard'));
@@ -116,6 +117,10 @@ const router = createBrowserRouter(
             { path:'journal/mini-game/Lottery', element: <Lottery /> },
             { path:'journal/mini-game/DrawLots', element: <DrawLots /> },
             { path:'journal/mini-game/Gomoku', element: <Gomoku /> },
+            { path:'journal/emotion-diary-personal/MainEdiary', element: <MainEdiary />}
+
+            /* community */
+
           ],
         },
         // { // 이렇게 말고

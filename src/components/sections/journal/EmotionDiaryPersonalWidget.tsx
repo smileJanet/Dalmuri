@@ -1,11 +1,19 @@
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import '../../../style/emotion.css'
+import { useNavigate } from 'react-router-dom'
 
 const EmotionalDiaryPersonalWidget = () => {
+  const navigate = useNavigate()
+
+  const goToDiary = () => {
+    navigate('/pages/journal/emotion-diary-personal/MainEdiary')
+  }
+
   return (
     <Paper
       sx={{height: 400}}
+      onClick={goToDiary}
     >
       <div>감정 일기(기록)</div>
       <Stack
