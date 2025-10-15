@@ -1,4 +1,6 @@
 import Stack from '@mui/material/Stack'
+import DiaryModal from 'components/sections/journal/emotion-diary-personal/DiaryModal.tsx'
+import '../../../../style/diarymodal.css'
 
 const MainEdiary = () => {
   /*
@@ -9,20 +11,11 @@ const MainEdiary = () => {
   * 오늘의 감정 변화량을 계산할 때 사용한다.
   * ex) “어제보다 나아졌나?” “이틀 전보다 안정적인가?”
   *
-  * 카테고리 -> 세부 감정 -> 최대 5개 선택하는 구조
-  *
-  * 1. 감정수치화
-  *
-  *
-  *
-  *
-  *
+  * API 호출 -> 결과값 -> 10개의 등급으로 나누기 (1~100점, 10점씩) 
+  * API 결과값으로 나온 점수로 감정 변화량 계산
   *
   * */
 
-
-  
-  
   return (
     <div id="root">
       <Stack
@@ -31,6 +24,12 @@ const MainEdiary = () => {
         justifyContent="center"
         sx={{ height: '100%' }}
       >
+        <div
+          className="diary-container"
+          style={{ height: '100%', width: '100%', backgroundColor: 'white'}}
+        >
+          <DiaryModal />
+        </div>
       </Stack>
     </div>
   )
