@@ -13,6 +13,7 @@ import Help from '../../../../assets/images/help.png';
 
 const DiaryModal = () => {
   const [text, setText] = useState('')
+  const [result, setResult] = useState('이곳에 감정결과가 나와요~')
 
   /*
   * [Google Cloud - Natural Language API]
@@ -20,17 +21,42 @@ const DiaryModal = () => {
   *
   * 현재 프로젝트는 vite + react이므로 백엔드 서버에서 API를 호출해야 한다.
   * 따라서 구글 API를 호출하기 위해선 backend에 작성해야 한다.
+  *
+  * [결과]
+  * magnitude: number, [0, +inf] 범위의 음수가 아닌 숫자로, 점수 (긍정 또는 부정)와 관계없이 감정의 절대 크기
+  * score: number, 감정 점수로, -1.0(부정적인 감정)부터 1.0(긍정적인 감정)까지
+  *
+    ① 깊은 어둠	-1.0 ~ -0.75	절망 / 분노	마음이 무너지는 수준의 감정 폭발. 강한 분노나 깊은 상실. #3c1f6b
+    ② 잿빛 슬픔	-0.75 ~ -0.5	슬픔 / 불안	서늘한 슬픔, 걱정, 외로움이 깔린 감정. #1c2854
+    ③ 흐린 마음	-0.5 ~ -0.25	우울 / 실망	기운이 빠지고 의욕이 사라지는 상태. 실망이나 자책. #4A5568
+    ④ 고요한 평온	-0.25 ~ 0.25	중립 / 평안	마음이 잔잔하고 특별히 요동치지 않는 상태. 안정감. #B8F4FA
+    ⑤ 맑은 미소	0.25 ~ 0.5	만족 / 따스함	소소한 행복, 마음의 여유, 안정된 긍정. #94EBC0
+    ⑥ 밝은 설렘	0.5 ~ 0.75	기쁨 / 기대감	무언가 잘 풀릴 것 같은 생기 있는 긍정. 활기찬 감정. #FFED8F
+    ⑦ 눈부신 행복	0.75 ~ 1.0	행복 / 희열	벅차오르는 감정, 감사나 사랑이 넘치는 순간. #FFDD3F
+  *
   * */
 
   async function getResultFromGoogle() {
     try {
-      const response = await fetch('http://localhost:3001/diary/get-diary-score')
-      console.log(`결과값 : ${response}`)
+      const response = await fetch('http://localhost:3001/diary/get-diary-score', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(text)
+      })
+
+      if(response.ok){
+        const result = await response.json()
+        console.log('감정 분석 결과 : ', result)
+        setResult(result.score)
+      } else {
+        console.error('서버 응답 오류 : ', response.status)
+      }
     } catch (e) {
       console.error('예상치 못한 에러 발생 : ', e)
     }
   }
-
 
   return(
     <div className="diary-modal-container">
@@ -131,8 +157,7 @@ const DiaryModal = () => {
         </div>
         <div className="diary-modal-footer-content">
           <div className="diary-modal-footer-content-left">
-            보내기를 누르면, AI 감정 다이어리가 오늘의 감정 점수를 매겨줘요~
-            (보내기 누른 후 여기에 response값 전달)
+            {result}
           </div>
           <div className="diary-modal-footer-content-right">
             <div
