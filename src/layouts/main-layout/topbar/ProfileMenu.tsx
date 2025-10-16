@@ -9,7 +9,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import IconifyIcon from 'components/base/IconifyIcon';
-import AvatarImage from 'assets/images/avater.png';
+import AvatarImage from 'assets/images/avatar.png';
 
 interface MenuItems {
   id: number;

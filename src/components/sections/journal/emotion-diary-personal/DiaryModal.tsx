@@ -14,6 +14,24 @@ import Help from '../../../../assets/images/help.png';
 const DiaryModal = () => {
   const [text, setText] = useState('')
 
+  /*
+  * [Google Cloud - Natural Language API]
+  * 해당 라이브러리, api를 통해서 텍스트의 감정을 분석
+  *
+  * 현재 프로젝트는 vite + react이므로 백엔드 서버에서 API를 호출해야 한다.
+  * 따라서 구글 API를 호출하기 위해선 backend에 작성해야 한다.
+  * */
+
+  async function getResultFromGoogle() {
+    try {
+      const response = await fetch('http://localhost:3001/diary/get-diary-score')
+      console.log(`결과값 : ${response}`)
+    } catch (e) {
+      console.error('예상치 못한 에러 발생 : ', e)
+    }
+  }
+
+
   return(
     <div className="diary-modal-container">
       <div className="diary-modal-titlebar">
@@ -117,8 +135,11 @@ const DiaryModal = () => {
             (보내기 누른 후 여기에 response값 전달)
           </div>
           <div className="diary-modal-footer-content-right">
-            <div className="diary-modal-footer-content-right-btn">
-              보내기!
+            <div
+              className="diary-modal-footer-content-right-btn"
+              onClick={()=>getResultFromGoogle()}
+            >
+              보내기
             </div>
           </div>
         </div>

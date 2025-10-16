@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "predeploy": "vite build && cp ./dist/index.html ./dist/404.html",
     "deploy": "gh-pages -d dist",
-    "clean" : "rimraf node_modules/.cache"
+    "clean": "rimraf node_modules/.cache"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
