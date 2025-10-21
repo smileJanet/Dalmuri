@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import style from '../../../../style/journal/emotionres.module.css'
+import EmotionFlower from 'components/sections/journal/emotion-diary-personal/EmotionFlower.tsx'
 
 const EmotionResult = () => {
   const location = useLocation()
@@ -7,8 +8,13 @@ const EmotionResult = () => {
 
   return (
       <div className={style['emotion-res-container']}>
-        <div className={style['emotion-res-images']}>
-          {color}
+        <div
+          className={style['emotion-res-images']}
+        >
+          <EmotionFlower
+            score={score}
+            color={color}
+          />
         </div>
         <div className={style['emotion-res-text']}>
           <div className={style['emotion-res-score']}>
