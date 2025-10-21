@@ -70,10 +70,10 @@ const MinigameWidget = () => {
     {
       field: 'id',
       flex: 0.1,
-      minWidth: 100,
       align: 'center',
       headerAlign: 'center',
       renderCell: (params) => (
+
         <IconifyIcon
           icon={params.row.icon}
           color={params.row.color}
@@ -87,7 +87,6 @@ const MinigameWidget = () => {
     {
       field: 'name',
       flex: 0.5,
-      minWidth: 500,
       align: 'center',
       headerAlign: 'center',
     }
@@ -114,6 +113,7 @@ const MinigameWidget = () => {
           hideFooter
           columnHeaderHeight={0}
           onRowClick={handleRowClick}
+          sx={{ width: '100%' }}
         />
       </Stack>
     </Paper>

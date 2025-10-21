@@ -1,7 +1,7 @@
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import { useMediaQuery, useTheme } from '@mui/material'
-import '../../../style/anonymousletter.css'
+import '../../../style/community/anonymousletter.css'
 
 const AnonymousLetterWidget = () => {
   const theme = useTheme()

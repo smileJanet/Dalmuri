@@ -1,6 +1,6 @@
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
-import '../../../style/emotion.css'
+import style from '../../../style/journal/emotion.module.css'
 import { useNavigate } from 'react-router-dom'
 
 const EmotionalDiaryPersonalWidget = () => {
@@ -23,12 +23,12 @@ const EmotionalDiaryPersonalWidget = () => {
         justifyContent="center"
         sx={{ height: '100%' }}
       >
-        <div className="emotion-widget">
-          <div className="emotion-face">🤗</div>
-          <div className="emotion-glow glow1"></div>
-          <div className="emotion-glow glow2"></div>
-          <div className="emotion-glow glow3"></div>
-          <div className="emotion-text">
+        <div className={style['emotion-widget']}>
+          <div className={style['emotion-face']}>🤗</div>
+          <div className={`${style['emotion-glow']} ${style['glow1']}`}></div>
+          <div className={`${style['emotion-glow']} ${style['glow2']}`}></div>
+          <div className={`${style['emotion-glow']} ${style['glow3']}`}></div>
+          <div className={style['emotion-text']}>
             오늘은 위로가 필요한 날이에요
           </div>
         </div>

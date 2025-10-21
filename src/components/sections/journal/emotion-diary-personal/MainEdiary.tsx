@@ -1,6 +1,6 @@
 import Stack from '@mui/material/Stack'
 import DiaryModal from 'components/sections/journal/emotion-diary-personal/DiaryModal.tsx'
-import '../../../../style/diarymodal.css'
+import '../../../../style/journal/diarymodal.css'
 
 const MainEdiary = () => {
   /*

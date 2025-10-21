@@ -1,4 +1,4 @@
-import '../../../../style/lottery.css'
+import '../../../../style/journal/lottery.css'
 import { useState } from 'react'
 import Stack from '@mui/material/Stack'
 

@@ -1,4 +1,4 @@
-import '../../../../style/gomoku.css'
+import '../../../../style/journal/gomoku.css'
 import Stack from '@mui/material/Stack'
 import GomokuBoard from 'components/sections/journal/mini-game/GomokuBoard.tsx'
 import { useState } from 'react'

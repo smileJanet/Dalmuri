@@ -1,4 +1,4 @@
-import '../../../../style/gomokuboard.css'
+import '../../../../style/journal/gomokuboard.css'
 import { GomokuBoardProps } from 'components/sections/journal/mini-game/Gomoku.tsx'
 
 /*

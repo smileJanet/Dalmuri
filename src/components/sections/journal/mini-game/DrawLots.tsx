@@ -1,4 +1,4 @@
-import '../../../../style/drawlots.css'
+import '../../../../style/journal/drawlots.css'
 import Stack from '@mui/material/Stack'
 import { ChangeEvent, useEffect, useState } from 'react'
 

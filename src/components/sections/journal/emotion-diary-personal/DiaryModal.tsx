@@ -1,4 +1,4 @@
-import '../../../../style/diarymodal.css'
+import '../../../../style/journal/diarymodal.css'
 import AvatarImage from '../../../../assets/images/avatar.png';
 import { useState } from 'react'
 import Font from '../../../../assets/images/font.png';
@@ -33,10 +33,70 @@ const DiaryModal = () => {
   * magnitude: number, [0, +inf] 범위의 음수가 아닌 숫자로, 점수 (긍정 또는 부정)와 관계없이 감정의 절대 크기
   * score: number, 감정 점수로, -1.0(부정적인 감정)부터 1.0(긍정적인 감정)까지
   *
-  *
   * */
 
+  const sadMsg = [
+    `\n화를 낼 힘조차 사라졌어요. \n그저 마음이 무너지고 있어요.`,
+    `\n분노의 불꽃이 사그라지고, \n차가운 슬픔만 남았어요.`,
+    `\n세상에 화를 내기엔 \n너무 아파요. \n그저 위로가 필요해요.`,
+    `\n마음이 부서져서, \n분노마저 잿빛이 되었어요.`,
+    `\n울분이 아니라 \n눈물로 번진 하루예요. \n조용한 위로가 그리워요.`,
+  ]
+
+  const depressMsg = [
+    `\n마음 한켠이 \n자꾸 쓸쓸해져요. \n이유 없이 불안해요.`,
+    `\n괜찮은 척해도, \n안개 같은 걱정이 맴돌아요.`,
+    `\n잔잔한 슬픔이 \n파도처럼 밀려와요. \n혼자가 된 기분이에요.`,
+    `\n미세한 불안이 \n하루를 뒤덮었어요.\n 바람이 스며드는 듯 외로워요.`,
+    `\n웃으려 해도, \n가슴속 어딘가가 \n자꾸 떨려요.`,
+  ]
+
+  const dullMsg = [
+    `\n의욕이 사라져요. \n모든 게 흐릿하게 느껴져요.`,
+    `\n조금만 더 잘했으면 하는 마음에 \n자꾸 자신을 책망해요.`,
+    `\n마음이 축 처져요. \n아무것도 하기 싫은 하루예요.`,
+    `\n괜찮은 줄 알았는데, \n기대했던 만큼 \n실망도 커요.`,
+    `\n가만히 있어도 \n마음이 무거워요. \n나 자신이 작게 느껴져요.`
+  ]
+
+  const calmMsg = [
+    `\n마음이 조용해요. \n바람결처럼 부드러운 하루예요.`,
+    `\n크게 기쁘지도, \n슬프지도 않아요. 그저 평온해요.`,
+    `\n잔잔한 물결처럼, \n감정이 고요하게 흐르고 있어요.`,
+    `\n특별한 일은 없지만, \n그것도 나쁘지 않아요.`,
+    `\n마음이 쉬어가고 있어요. \n오늘은 그냥 이대로 좋아요.`
+  ]
+
+  const smileMsg = [
+    `\n햇살 같은 하루예요. \n마음이 조금 따뜻해졌어요.`,
+    `\n사소한 일에도 \n미소가 번져요. \n이런 평범함이 좋아요.`,
+    `\n커피 한 모금에도 \n행복을 느껴요. \n마음이 편안해요.`,
+    `\n누군가의 한마디가 \n오늘을 조금 더 \n따뜻하게 만들었어요.`,
+    `\n별일 없지만 괜찮아요..\n지금 이 순간이 고마워요.`
+  ]
+
+  const brightMsg = [
+    `\n마음이 들떠요! \n오늘은 뭔가 좋은 일이 \n있을 것 같아요.`,
+    `\n설레는 예감이 스며들어요. \n세상이 조금 더 밝게 보여요.`,
+    `\n작은 일에도 웃음이 나요. \n하루가 가볍게 흘러가요.`,
+    `\n조금만 더 노력하면 \n뭐든 될 것 같은 기분이에요!`,
+    `\n기분 좋은 바람이 불어요. \n모든 게 새롭게 느껴져요.`
+  ]
+
+  const happyMsg = [
+    `\n세상이 빛나요! \n마음이 꽉 차서 \n눈물이 날 만큼 행복해요.`,
+    `\n모든 게 고마워요. \n존재만으로도 벅차올라요.`,
+    `\n가슴이 두근거려요. \n사랑과 기쁨이 넘쳐흘러요.`,
+    `\n오늘은 정말 찬란해요. \n나 자신이 빛나고 있어요.`,
+    `\n이 순간이 영원했으면 좋겠어요. \n행복이 터질 것 같아요.`
+  ]
+
   async function getResultFromGoogle() {
+    if(!text) {
+      alert('텅 비었잖아! 이럴거야?(´・ω・)')
+      return
+    }
+
     try {
       const response = await fetch('http://localhost:3001/diary/get-diary-score', {
         method: 'POST',
@@ -59,119 +119,63 @@ const DiaryModal = () => {
   }
 
   async function setEmotion(score: number) {
-    const sadMsg = [
-      '화를 낼 힘조차 사라졌어요... 그저 마음이 무너지고 있어요.',
-      '분노의 불꽃이 사그라지고, 차가운 슬픔만 남았어요.',
-      '세상에 화를 내기엔 너무 아파요... 그저 위로가 필요해요.',
-      '마음이 부서져서, 분노마저 잿빛이 되었어요.',
-      '울분이 아니라 눈물로 번진 하루예요... 조용한 위로가 그리워요.',
-    ]
-
-    const depressMsg = [
-      '마음 한켠이 자꾸 쓸쓸해져요... 이유 없이 불안해요.',
-      '괜찮은 척해도, 안개 같은 걱정이 맴돌아요.',
-      '잔잔한 슬픔이 파도처럼 밀려와요... 혼자가 된 기분이에요.',
-      '미세한 불안이 하루를 뒤덮었어요... 바람이 스며드는 듯 외로워요.',
-      '웃으려 해도, 가슴속 어딘가가 자꾸 떨려요.',
-    ]
-
-    const dullMsg = [
-      '의욕이 사라져요... 모든 게 흐릿하게 느껴져요.',
-      '조금만 더 잘했으면 하는 마음에 자꾸 자신을 책망해요.',
-      '마음이 축 처져요... 아무것도 하기 싫은 하루예요.',
-      '괜찮은 줄 알았는데, 기대했던 만큼 실망도 커요.',
-      '가만히 있어도 마음이 무거워요... 나 자신이 작게 느껴져요.'
-    ]
-
-    const calmMsg = [
-      '마음이 조용해요. 바람결처럼 부드러운 하루예요.',
-      '크게 기쁘지도, 슬프지도 않아요. 그저 평온해요.',
-      '잔잔한 물결처럼, 감정이 고요하게 흐르고 있어요.',
-      '특별한 일은 없지만, 그것도 나쁘지 않아요.',
-      '마음이 쉬어가고 있어요. 오늘은 그냥 이대로 좋아요.'
-    ]
-
-    const smileMsg = [
-      '햇살 같은 하루예요. 마음이 조금 따뜻해졌어요.',
-      '사소한 일에도 미소가 번져요. 이런 평범함이 좋아요.',
-      '커피 한 모금에도 행복을 느껴요. 마음이 편안해요.',
-      '누군가의 한마디가 오늘을 조금 더 따뜻하게 만들었어요.',
-      '별일 없지만 괜찮아요.. 지금 이 순간이 고마워요.'
-    ]
-
-    const brightMsg = [
-      '마음이 들떠요! 오늘은 뭔가 좋은 일이 있을 것 같아요.',
-      '설레는 예감이 스며들어요. 세상이 조금 더 밝게 보여요.',
-      '작은 일에도 웃음이 나요. 하루가 가볍게 흘러가요.',
-      '조금만 더 노력하면 뭐든 될 것 같은 기분이에요!',
-      '기분 좋은 바람이 불어요. 모든 게 새롭게 느껴져요.'
-    ]
-
-    const happyMsg = [
-      '세상이 빛나요! 마음이 꽉 차서 눈물이 날 만큼 행복해요.',
-      '모든 게 고마워요. 존재만으로도 벅차올라요.',
-      '가슴이 두근거려요. 사랑과 기쁨이 넘쳐흘러요.',
-      '오늘은 정말 찬란해요. 나 자신이 빛나고 있어요.',
-      '이 순간이 영원했으면 좋겠어요. 행복이 터질 것 같아요.'
-    ]
-
     const userScore = Math.round((score + 1) * 50)
 
     switch (true) {
       case score >= -1.0 && score <= -0.75:
         setTodayEmotion({
           score: userScore,
-          color: '#3c1f6b',
-          dayCmnt: '밤이 길게 내려앉았어요. 하지만 이 어둠도 곧 끝나요',
-          text: '[깊은 어둠] ' + sadMsg[Math.floor(Math.random() * sadMsg.length)]
+          color: '#4B3F72',
+          dayCmnt: `밤이 길게 내려앉았어요.\n하지만 이 어둠도 곧 끝나요`,
+          text: '[깊은 어둠]\n' + sadMsg[Math.floor(Math.random() * sadMsg.length)]
         })
         break;
       case score > -0.75 && score <= -0.5 :
         setTodayEmotion({
           score: userScore,
-          color: '#1c2854',
-          dayCmnt: '하늘이 흐려도, 그 안엔 여전히 빛이 숨어있어요.',
-          text: '[잿빛 슬픔] ' + depressMsg[Math.floor(Math.random() * depressMsg.length)]
+          color: '#517EA6',
+          dayCmnt: `하늘이 흐려도,\n그 안엔 여전히 빛이 숨어있어요.`,
+          text: '[잿빛 슬픔]\n' + depressMsg[Math.floor(Math.random() * depressMsg.length)]
         })
         break;
       case score > -0.5 && score <= -0.25 :
         setTodayEmotion({
           score: userScore,
-          color: '#4A5568',
-          dayCmnt: '바람이 차지만, 언젠가 이 구름도 걷히겠죠.',
-          text: '[흐린 마음] ' + dullMsg[Math.floor(Math.random() * dullMsg.length)]
+          color: '#7BAACD',
+          dayCmnt: `바람이 차지만,\n언젠가 이 구름도 걷히겠죠.`,
+          text: '[흐린 마음]\n' + dullMsg[Math.floor(Math.random() * dullMsg.length)]
         })
         break;
       case score > -0.25 && score <= 0.25 :
         setTodayEmotion({
           score: userScore,
-          color: '#B8F4FA',
-          dayCmnt: '고요한 마음에 작은 파도가 일어요. 그것도 괜찮아요.',
-          text: '[고요한 평온] ' + calmMsg[Math.floor(Math.random() * calmMsg.length)]
+          color: '#A9D6C8',
+          dayCmnt: `고요한 마음에 작은 파도가 일어요. \n그것도 괜찮아요.`,
+          text: '[고요한 평온]\n' + calmMsg[Math.floor(Math.random() * calmMsg.length)]
         })
         break;
       case score > 0.25 && score <= 0.5 :
         setTodayEmotion({
           score: userScore,
-          color:'#94EBC0',
-          dayCmnt: '햇살이 스며드는 마음이에요. 당신의 웃음이 참 고와요.',
-          text: '[맑은 미소] ' + smileMsg[Math.floor(Math.random() * smileMsg.length)]
+          color:'#F3E99F',
+          dayCmnt: `햇살이 스며드는 마음이에요. \n당신의 웃음이 참 고와요.`,
+          text: '[맑은 미소]\n' + smileMsg[Math.floor(Math.random() * smileMsg.length)]
         })
         break;
       case score > 0.5 && score <= 0.75 :
         setTodayEmotion({
           score: userScore,
-          color: '#FFED8F',
-          dayCmnt: '마음이 콩닥거려요. 오늘은 좋은 일이 올 것 같아요.',
-          text: '[밝은 설렘] ' + brightMsg[Math.floor(Math.random() * brightMsg.length)]
+          color: '#FF9E80',
+          dayCmnt: `마음이 콩닥거려요.\n오늘은 좋은 일이 올 것 같아요.`,
+          text: '[밝은 설렘]\n' + brightMsg[Math.floor(Math.random() * brightMsg.length)]
         })
         break;
       case score > 0.75 && score <= 1.0 :
         setTodayEmotion({
           score: userScore,
-          color: '#FFDD3F',
-          dayCmnt: '모든 게 찬란해요. 오늘은 당신의 빛이 세상을 물들여요.',
-          text: '[눈부신 행복] ' + happyMsg[Math.floor(Math.random() * happyMsg.length)]
+          color: '#F9A1A0',
+          dayCmnt: `모든 게 찬란해요.\n오늘은 당신의 빛이 세상을 물들여요.`,
+          text: '[눈부신 행복]\n' + happyMsg[Math.floor(Math.random() * happyMsg.length)]
         })
         break;
     }
@@ -210,7 +214,9 @@ const DiaryModal = () => {
   *
   * */
   async function moveToResultPage () {
-    navigate('/pages/journal/emotion-diary-personal/EmotionResult')
+    navigate('/pages/journal/emotion-diary-personal/EmotionResult', {
+      state: todayEmotion,
+    })
   }
 
   return(
