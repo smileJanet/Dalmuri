@@ -349,39 +349,45 @@ const Gomoku = () => {
   const calculateScore = (currentGrid: ('black' | 'white' | null)[][], alphaColor: 'white' | 'black'): number => {
     // 1. 종료 상태 점수
     const winner = isGameOver(currentGrid)
-    if (winner === alphaColor) return 100 // 컴퓨터 승리
-    if (winner !== null) return -100 // 상대(사람) 승리
+    if (winner === alphaColor) return 10000 // 컴퓨터 승리
+    if (winner !== null) return -10000 // 상대(사람) 승리
+    if (winner == 'draw') return 0 // 무승부
 
     // 무승부시 0을 반환할 수도 있으나 미니맥스에선 보통 MAX/MIN의 승패가 중요하다...
+    let aiScore = 0
+    let userScore = 0
 
     // 2. 현재 상태 평가 점수 (단일 단계 평가 활용)
     // 모든 칸을 탐색하여 AI와 상대의 잠재적 점수를 계산하고 차이를 반환한다.
-    let total = 0
-
     for (let x = 0; x < BOARD_SIZE; x++) {
       for (let y = 0; y < BOARD_SIZE; y++) {
         if(currentGrid[x][y] !== null) continue
 
         // (1) 컴퓨터(alpha, max)가 이 칸에 놓았을 때 잠재적 점수
-        let maxScore = 0
-        const maxCount = calculateStone(x, y, 'black', currentGrid)
-        if (maxCount === 4) maxScore = 80
-        else if (maxCount === 3) maxScore = 30
+        const aiCount = calculateStone(x, y, 'black', currentGrid)
+        if (aiCount >= 5) aiScore += 10000
+        else if (aiCount === 4) aiScore += 800
+        else if (aiCount === 3) aiScore += 50
+        else if (aiCount === 2) aiScore += 5
         
         // (2) 상대(beta, min)가 이 칸에 놓았을 때의 잠재적 함수
-        let minScore = 0
-        const minCount = calculateStone(x, y, 'white', currentGrid)
-        if(minCount === 4) minScore = 90
-        else if (minCount === 3) minScore = 40
-        
+        const userCount = calculateStone(x, y, 'white', currentGrid)
+        if (userCount >= 5) userScore += 10000
+        else if (userCount === 4) userScore += 1000
+        else if (aiCount === 3) userScore += 100
+        else if (aiCount === 2) userScore += 10
+
+
         // 상대의 위협은 컴퓨터에게 '마이너스' 점수
-        total += (maxScore - minScore)
+        // total += (maxScore - minScore)
 
       }
     }
 
-    return total
+    // return total
+    return aiScore - userScore
   }
+
 
   // 유효한 수(돌이 놓인 곳 주변 1~2칸)만 찾아서 배열로 반환하는 함수(필수 최적화)
   const findMove = (currentGrid: ('black' | 'white' | null)[][]) => {
