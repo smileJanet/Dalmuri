@@ -41,10 +41,10 @@ const EmotionFlower = ({score, color}: Props) => {
     <div
       className={`${style['emotion-flower']}`}
       style={{
-        background: `radial-gradient(circle, ${bgColor} 35%, ${color}${colorOpacity} 65%, transparent 80%)`
+        background: `radial-gradient(circle, ${bgColor} 35%, ${color}${colorOpacity} 60%, transparent 70%)`
       }}
     >
-      <img src={flowerImg} alt="happy flower" />
+      <img src={flowerImg} alt="flower" />
     </div>
   )
 }
