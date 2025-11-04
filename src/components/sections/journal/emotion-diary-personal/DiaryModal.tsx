@@ -12,6 +12,20 @@ import Friend from '../../../../assets/images/friend.png';
 import Help from '../../../../assets/images/help.png';
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * [TODO] 감정 다이어리 기준 - DB 설계 시 저장 & 관리할 것
+ *
+ *  [감정 7단계] - 나중에 DB에 저장해서 관리하던가 할것
+ *  1. 깊은 어둠(#4B3F72), score >= -1.0 && score <= -0.75 , sadMsg
+ *  2. 잿빛 슬픔(#517EA6), score > -0.75 && score <= -0.5 , depressMsg
+ *  3. 흐린 마음(#7BAACD), score > -0.5 && score <= -0.25 , dullMsg
+ *  4. 고요한 평온(#A9D6C8), score > -0.25 && score <= 0.25 , calmMsg
+ *  5. 맑은 미소(#F3E99F), score > 0.25 && score <= 0.5 , smileMsg
+ *  6. 밝은 설렘(#FF9E80), score > 0.5 && score <= 0.75 , brightMsg
+ *  7. 눈부신 행복(#F9A1A0), score > 0.75 && score <= 1.0 , happyMsg
+ *
+ **/
+
 const DiaryModal = () => {
   const navigate = useNavigate()
   const [text, setText] = useState('')

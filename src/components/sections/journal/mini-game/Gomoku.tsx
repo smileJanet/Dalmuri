@@ -349,13 +349,22 @@ const Gomoku = () => {
   const calculateScore = (currentGrid: ('black' | 'white' | null)[][], alphaColor: 'white' | 'black'): number => {
     // 1. 종료 상태 점수
     const winner = isGameOver(currentGrid)
+    if (winner === 'draw') return 0 // 무승부
     if (winner === alphaColor) return 10000 // 컴퓨터 승리
-    if (winner !== null) return -10000 // 상대(사람) 승리
-    if (winner == 'draw') return 0 // 무승부
+    if (winner !== null ) return -10000 // 상대(사람) 승리
+
+    /*
+    * if (winner === alphaColor) return 10000 // 컴퓨터 승리
+    * if (winner !== null) return -10000 // 상대(사람) 승리
+    * if (winner == 'draw') return 0 // 무승부
+    *
+    * 이상태였으면 winner !== null에 winner == 'draw'가 걸리기 때문에 무승부여도 -10000 반환
+    *
+    * */
 
     // 무승부시 0을 반환할 수도 있으나 미니맥스에선 보통 MAX/MIN의 승패가 중요하다...
-    let aiScore = 0
-    let userScore = 0
+    let aiScore = 0     // 컴퓨터 점수
+    let userScore = 0   // 사용자 점수
 
     // 2. 현재 상태 평가 점수 (단일 단계 평가 활용)
     // 모든 칸을 탐색하여 AI와 상대의 잠재적 점수를 계산하고 차이를 반환한다.
@@ -374,9 +383,8 @@ const Gomoku = () => {
         const userCount = calculateStone(x, y, 'white', currentGrid)
         if (userCount >= 5) userScore += 10000
         else if (userCount === 4) userScore += 1000
-        else if (aiCount === 3) userScore += 100
-        else if (aiCount === 2) userScore += 10
-
+        else if (userCount === 3) userScore += 100
+        else if (userCount === 2) userScore += 10
 
         // 상대의 위협은 컴퓨터에게 '마이너스' 점수
         // total += (maxScore - minScore)
