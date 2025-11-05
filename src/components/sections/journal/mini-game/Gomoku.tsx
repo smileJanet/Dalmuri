@@ -60,6 +60,15 @@ const Gomoku = () => {
 
   }
 
+  /**
+   * 특정 칸에 돌을 놓았을 때, 연속으로 이어지는 돌의 최대 개수를 계산
+   * (가로, 세로, 두 대각선 모두 확인)
+   * @param x - 돌을 놓을 행(row)
+   * @param y - 돌을 놓을 열(column)
+   * @param color - 놓을 돌의 색상 ('black' 또는 'white')
+   * @param grid - 현재 보드 상태
+   * @returns - 연속된 돌의 최대 개수
+   */
   // 패턴 분석 : 몇개의 돌이 연속으로 이어지는지 계산하는 함수
   const calculateStone = (
     x:number,
@@ -98,8 +107,6 @@ const Gomoku = () => {
         ↙  ↓  ↘
     * 4방향만 한 이유 : 나머지도 나중에 확인할 예정이어서
     *
-    *
-    *
     * */
     
     // 기존 : 함수 실행마다 새로운 map을 그려야 해서 성능 떨어짐
@@ -117,10 +124,9 @@ const Gomoku = () => {
       {dx: 1, dy: 1}, // 오른쪽 아래
     ]
 
-    let maxCnt = 1 // 지금 넣은 돌부터 카운트 시작
+    let maxCnt = 0 // 지금 넣은 돌부터 카운트 시작
 
     /*
-    *
     * 현재 위치: (3, 2)에 검은돌 놓음
       가로 방향(→) 확인:
 
@@ -133,8 +139,10 @@ const Gomoku = () => {
     for (const {dx, dy} of directions) { // 각 4방향(direction에서 설정)부터 시작
       let count = 1 // 현재 돌부터 시작
 
+      // 1. 정방향으로 연속된 돌 개수 세기
       let nx = x + dx  // 다음 가로위치
       let ny = y + dy  // 다음 세로위치
+
       while (
         nx >= 0 &&
         nx < BOARD_SIZE &&
@@ -147,8 +155,10 @@ const Gomoku = () => {
         ny += dy //     "
       }
 
+      // 2. 역방향으로 연속된 돌 개수 세기 (정방향과 역방향을 합산)
       nx = x - dx  // 반대 방향 가로
       ny = y - dy  // 반대 방향 세로
+
       while (
         nx >= 0 &&
         nx < BOARD_SIZE &&
@@ -311,7 +321,7 @@ const Gomoku = () => {
   * 
   * [알파 - 베타 가지치기 필수 조건]
   * 1. 다단계 탐색 : 트리의 깊이(depth) 개념 혹은 재귀 호출을 해야 한다.
-  * 2. 가지치기 : 알파오 베타값을 사용하여 불필요한 경로를 제거해야 한다.
+  * 2. 가지치기 : 알파와 베타값을 사용하여 불필요한 경로를 제거해야 한다.
   *
   * */
   
@@ -349,9 +359,10 @@ const Gomoku = () => {
   const calculateScore = (currentGrid: ('black' | 'white' | null)[][], alphaColor: 'white' | 'black'): number => {
     // 1. 종료 상태 점수
     const winner = isGameOver(currentGrid)
-    if (winner === 'draw') return 0 // 무승부
+
     if (winner === alphaColor) return 10000 // 컴퓨터 승리
-    if (winner !== null ) return -10000 // 상대(사람) 승리
+    if (winner !== null && winner !== 'draw') return -10000 // 상대(사람) 승리
+    if (winner === 'draw') return 0 // 무승부
 
     /*
     * if (winner === alphaColor) return 10000 // 컴퓨터 승리
@@ -395,7 +406,6 @@ const Gomoku = () => {
     // return total
     return aiScore - userScore
   }
-
 
   // 유효한 수(돌이 놓인 곳 주변 1~2칸)만 찾아서 배열로 반환하는 함수(필수 최적화)
   const findMove = (currentGrid: ('black' | 'white' | null)[][]) => {

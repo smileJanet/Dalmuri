@@ -11,11 +11,12 @@ import Edit from '../../../../assets/images/edit.png';
 import Friend from '../../../../assets/images/friend.png';
 import Help from '../../../../assets/images/help.png';
 import { useNavigate } from 'react-router-dom'
+import { Emotion } from 'pages/common'
 
 /**
- * [TODO] 감정 다이어리 기준 - DB 설계 시 저장 & 관리할 것
+ * [TODO] 감정의 7단계 기준 - DB 설계 시 저장 & 관리할 것, SCORE과 MAGNITUDE는 100점화 할 것
  *
- *  [감정 7단계] - 나중에 DB에 저장해서 관리하던가 할것
+ *  [감정 7단계] - 나중에 DB에 저장해서 관리할 것
  *  1. 깊은 어둠(#4B3F72), score >= -1.0 && score <= -0.75 , sadMsg
  *  2. 잿빛 슬픔(#517EA6), score > -0.75 && score <= -0.5 , depressMsg
  *  3. 흐린 마음(#7BAACD), score > -0.5 && score <= -0.25 , dullMsg
@@ -29,8 +30,9 @@ import { useNavigate } from 'react-router-dom'
 const DiaryModal = () => {
   const navigate = useNavigate()
   const [text, setText] = useState('')
-  const [todayEmotion, setTodayEmotion] = useState({
+  const [todayEmotion, setTodayEmotion] = useState<Emotion>({
     score: 0,
+    magnitude: 0,
     color: '',
     dayCmnt: '',
     text: '이곳에 감정 결과가 나와요~',
@@ -123,7 +125,7 @@ const DiaryModal = () => {
       if(response.ok){
         const result = await response.json()
         console.log('감정 분석 결과 : ', result)
-        await setEmotion(result.score)
+        await setEmotion(result.score, result.magnitude)
       } else {
         console.error('서버 응답 오류 : ', response.status)
       }
@@ -132,13 +134,15 @@ const DiaryModal = () => {
     }
   }
 
-  async function setEmotion(score: number) {
+  async function setEmotion(score: number, magnitude: number) {
     const userScore = Math.round((score + 1) * 50)
+    const userMagnitude = Math.min(Math.round(magnitude * 20), 100)
 
     switch (true) {
       case score >= -1.0 && score <= -0.75:
         setTodayEmotion({
           score: userScore,
+          magnitude: userMagnitude,
           color: '#4B3F72',
           dayCmnt: `밤이 길게 내려앉았어요.\n하지만 이 어둠도 곧 끝나요`,
           text: '[깊은 어둠]\n' + sadMsg[Math.floor(Math.random() * sadMsg.length)]
@@ -147,6 +151,7 @@ const DiaryModal = () => {
       case score > -0.75 && score <= -0.5 :
         setTodayEmotion({
           score: userScore,
+          magnitude: userMagnitude,
           color: '#517EA6',
           dayCmnt: `하늘이 흐려도,\n그 안엔 여전히 빛이 숨어있어요.`,
           text: '[잿빛 슬픔]\n' + depressMsg[Math.floor(Math.random() * depressMsg.length)]
@@ -155,6 +160,7 @@ const DiaryModal = () => {
       case score > -0.5 && score <= -0.25 :
         setTodayEmotion({
           score: userScore,
+          magnitude: userMagnitude,
           color: '#7BAACD',
           dayCmnt: `바람이 차지만,\n언젠가 이 구름도 걷히겠죠.`,
           text: '[흐린 마음]\n' + dullMsg[Math.floor(Math.random() * dullMsg.length)]
@@ -163,6 +169,7 @@ const DiaryModal = () => {
       case score > -0.25 && score <= 0.25 :
         setTodayEmotion({
           score: userScore,
+          magnitude: userMagnitude,
           color: '#A9D6C8',
           dayCmnt: `고요한 마음에 작은 파도가 일어요. \n그것도 괜찮아요.`,
           text: '[고요한 평온]\n' + calmMsg[Math.floor(Math.random() * calmMsg.length)]
@@ -171,6 +178,7 @@ const DiaryModal = () => {
       case score > 0.25 && score <= 0.5 :
         setTodayEmotion({
           score: userScore,
+          magnitude: userMagnitude,
           color:'#F3E99F',
           dayCmnt: `햇살이 스며드는 마음이에요. \n당신의 웃음이 참 고와요.`,
           text: '[맑은 미소]\n' + smileMsg[Math.floor(Math.random() * smileMsg.length)]
@@ -179,6 +187,7 @@ const DiaryModal = () => {
       case score > 0.5 && score <= 0.75 :
         setTodayEmotion({
           score: userScore,
+          magnitude: userMagnitude,
           color: '#FF9E80',
           dayCmnt: `마음이 콩닥거려요.\n오늘은 좋은 일이 올 것 같아요.`,
           text: '[밝은 설렘]\n' + brightMsg[Math.floor(Math.random() * brightMsg.length)]
@@ -187,6 +196,7 @@ const DiaryModal = () => {
       case score > 0.75 && score <= 1.0 :
         setTodayEmotion({
           score: userScore,
+          magnitude: userMagnitude,
           color: '#F9A1A0',
           dayCmnt: `모든 게 찬란해요.\n오늘은 당신의 빛이 세상을 물들여요.`,
           text: '[눈부신 행복]\n' + happyMsg[Math.floor(Math.random() * happyMsg.length)]
@@ -338,6 +348,8 @@ const DiaryModal = () => {
                 :
                 <div>
                   오늘의 감정 점수: {todayEmotion.score}점
+                  <br />
+                  오늘의 감정 강도: {todayEmotion.magnitude}점
                   <br />
                   오늘의 한마디: {todayEmotion.dayCmnt}
                 </div>

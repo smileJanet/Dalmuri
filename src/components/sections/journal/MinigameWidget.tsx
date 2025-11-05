@@ -113,7 +113,12 @@ const MinigameWidget = () => {
           hideFooter
           columnHeaderHeight={0}
           onRowClick={handleRowClick}
-          sx={{ width: '100%' }}
+          sx={{
+            width: '100%',
+            '& .MuiDataGrid-cell': {
+              fontSize: '1.05rem',
+            },
+        }}
         />
       </Stack>
     </Paper>

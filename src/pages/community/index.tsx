@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid'
-import EmotionDiaryPublicWidget from 'components/sections/community/EmotionDiaryPublicWidget.tsx'
+import EmotionDiaryPublicWidget from 'components/sections/community/emotion-diary-public/EmotionDiaryPublicWidget.tsx'
 import TodaysWordWidget from 'components/sections/community/TodaysWordWidget.tsx'
 import AnonymousLetterWidget from 'components/sections/community/AnonymousLetterWidget.tsx'
 import Box from '@mui/material/Box'
