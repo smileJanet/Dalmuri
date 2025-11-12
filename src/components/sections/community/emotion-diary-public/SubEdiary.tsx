@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import EmotionAnalysis from 'components/sections/community/emotion-diary-public/EmotionAnalysis.tsx'
+import EmotionTrash from 'components/sections/community/emotion-diary-public/EmotionTrash.tsx'
 
 const SubEdiary = () => {
 
@@ -25,8 +26,7 @@ const SubEdiary = () => {
       <Grid
         item
         xs={12}
-        sm={12}
-        xl={12}
+        lg={8}
         sx={{ display: 'flex' }}
       >
         <Box sx={{
@@ -36,6 +36,22 @@ const SubEdiary = () => {
           flexDirection: 'column'
         }}>
           <EmotionAnalysis />
+        </Box>
+      </Grid>
+
+      <Grid
+        item
+        xs={12}
+        lg={4}
+        sx={{ display: 'flex' }}
+      >
+        <Box sx={{
+          height: 'auto',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <EmotionTrash />
         </Box>
       </Grid>
     </Grid>

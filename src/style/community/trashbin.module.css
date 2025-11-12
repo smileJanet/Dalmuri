@@ -1,0 +1,371 @@
+.bin-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.bin-img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.bin-img.visible {
+    opacity: 1;
+}
+
+.bin-text {
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+    color: rgba(141, 5, 78, 0.8);
+    text-align: center;
+    font-size: 14px;
+}
+
+.bin-cute-screen {
+    background: linear-gradient(145deg, #ffe5f0 0%, #ffd5e5 100%);
+    border: 5px solid #ff69b4;
+    border-radius: 25px;
+    box-shadow:
+            0 8px 0 #ff1493,
+            0 12px 25px rgba(255, 20, 147, 0.3),
+            inset 0 3px 0 rgba(255, 255, 255, 0.6);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bin-cute-screen::before {
+    content: '♥';
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 20px;
+    color: #ff69b4;
+    opacity: 0.5;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.bin-cute-screen::after {
+    content: '★';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    color: #ffd700;
+    opacity: 0.5;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; transform: rotate(0deg); }
+    50% { opacity: 1; transform: rotate(10deg); }
+}
+
+.bin-textarea {
+    width: 100%;
+    height: 240px; /* 기본 높이 증가 */
+    padding: 15px;
+    border: 3px solid #ff6b9d;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #fff5f7 0%, #ffe5ec 100%);
+    box-shadow:
+            0 0 20px rgba(255, 107, 157, 0.3),
+            inset 0 2px 5px rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    color: #333;
+    resize: none;
+    outline: none;
+    transition: all 0.3s ease;
+    margin: 5px 0;
+    font-family: inherit;
+    box-sizing: border-box;
+    flex: 1; /* 남은 공간 채우기 */
+    max-height: 280px; /* 최대 높이 제한 */
+}
+
+.bin-textarea:focus {
+    border-color: #ff1493;
+    box-shadow:
+            0 0 30px rgba(255, 20, 147, 0.5),
+            inset 0 2px 5px rgba(255, 255, 255, 0.8);
+    background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
+}
+
+.bin-textarea::placeholder {
+    color: #ff69b4;
+    opacity: 0.6;
+}
+
+.bin-button {
+    margin-top: 10px;
+    padding: 10px 20px !important;
+    background: linear-gradient(180deg, #ff6b9d 0%, #ff1493 100%) !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 10px !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    /*box-shadow:*/
+    /*        0 5px 15px rgba(255, 20, 147, 0.4),*/
+    /*        inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;*/
+    cursor: pointer;
+    transition: all 0.3s ease !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 100px;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0; /* 버튼 크기 고정 */
+}
+
+.bin-button:hover {
+    background: linear-gradient(180deg, #ff1493 0%, #ff6b9d 100%) !important;
+    transform: translateY(-2px);
+    box-shadow:
+            0 8px 20px rgba(255, 20, 147, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+}
+
+.bin-button:active {
+    transform: translateY(0);
+    box-shadow:
+            0 3px 10px rgba(255, 20, 147, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+}
+
+.handheld-console-box {
+    background: linear-gradient(145deg, #ffc9e5 0%, #ffb3d9 100%);
+    border: 5px solid #ff69b4;
+    border-radius: 30px;
+    box-shadow:
+            0 8px 0 #ff1493,
+            0 12px 25px rgba(255, 20, 147, 0.4),
+            inset 0 3px 0 rgba(255, 255, 255, 0.6);
+    position: relative;
+    padding: 25px;
+}
+
+/* 1200~2000px 구간: 게임기 버튼 배치 조정 */
+@media (min-width: 900px) and (max-width: 2000px) {
+    .handheld-console-box {
+        padding: 30px 25px 60px 25px;
+    }
+
+    .bin-textarea {
+        height: 220px;
+        margin-bottom: 8px;
+    }
+
+    .bin-button {
+        max-width: 100px;
+        margin-bottom: 15px;
+    }
+
+    .handheld-console-box::before {
+        bottom: 12px;
+        left: 20px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .handheld-console-box::after {
+        bottom: 12px;
+        right: 25px;
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+}
+
+/* 1200px 이하 */
+@media (max-width: 1200px) {
+    .bin-cute-screen,
+    .handheld-console-box {
+        border-width: 4px;
+        border-radius: 20px;
+        padding: 20px 20px 55px 20px;
+    }
+
+    .bin-textarea {
+        height: 180px;
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .bin-button {
+        padding: 8px 16px !important;
+        font-size: 14px !important;
+        max-width: 100px;
+        margin-bottom: 10px;
+    }
+
+    .handheld-console-box::before {
+        width: 28px;
+        height: 28px;
+        bottom: 10px;
+        left: 15px;
+    }
+
+    .handheld-console-box::after {
+        width: 26px;
+        height: 26px;
+        bottom: 10px;
+        right: 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 900px) {
+    .handheld-console-box {
+        padding: 18px 18px 50px 18px;
+    }
+
+    .bin-textarea {
+        height: 170px;
+    }
+
+    .bin-container img {
+        max-width: 80px;
+    }
+
+    .bin-text {
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+    .bin-cute-screen::before,
+    .bin-cute-screen::after {
+        font-size: 16px;
+        top: 8px;
+    }
+
+    .bin-cute-screen::before {
+        left: 12px;
+    }
+
+    .bin-cute-screen::after {
+        right: 12px;
+    }
+
+    .handheld-console-box::before {
+        width: 25px;
+        height: 25px;
+        bottom: 8px;
+        left: 12px;
+    }
+
+    .handheld-console-box::after {
+        width: 24px;
+        height: 24px;
+        bottom: 8px;
+        right: 15px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 600px) {
+    .bin-cute-screen,
+    .handheld-console-box {
+        border-width: 3px;
+        border-radius: 15px;
+        padding: 15px 15px 45px 15px;
+        box-shadow:
+                0 5px 0 #ff1493,
+                0 8px 15px rgba(255, 20, 147, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .bin-container img {
+        max-width: 70px;
+    }
+
+    .bin-text {
+        font-size: 12px;
+    }
+
+    .bin-textarea {
+        height: 140px;
+        padding: 10px;
+        font-size: 12px;
+        border-width: 2px;
+    }
+
+    .bin-button {
+        padding: 8px 16px !important;
+        font-size: 13px !important;
+        border-width: 2px !important;
+        max-width: 100px;
+        margin-bottom: 8px;
+    }
+
+    .handheld-console-box::before {
+        width: 22px;
+        height: 22px;
+        bottom: 8px;
+        left: 10px;
+    }
+
+    .handheld-console-box::after {
+        width: 22px;
+        height: 22px;
+        bottom: 8px;
+        right: 12px;
+        font-size: 12px;
+        box-shadow:
+                0 2px 0 #d10080,
+                0 3px 8px rgba(255, 20, 147, 0.4);
+    }
+
+    .bin-cute-screen::before,
+    .bin-cute-screen::after {
+        font-size: 14px;
+        top: 6px;
+    }
+}
+
+@media (max-width: 400px) {
+    .bin-cute-screen,
+    .handheld-console-box {
+        padding: 12px 12px 40px 12px;
+    }
+
+    .bin-textarea {
+        height: 110px;
+        padding: 8px;
+    }
+
+    .bin-button {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        max-width: 100px;
+    }
+
+    .handheld-console-box::before {
+        width: 20px;
+        height: 20px;
+        bottom: 6px;
+        left: 8px;
+    }
+
+    .handheld-console-box::after {
+        width: 20px;
+        height: 20px;
+        bottom: 6px;
+        right: 10px;
+        font-size: 11px;
+    }
+}

@@ -30,6 +30,7 @@ import { Emotion } from 'pages/common'
 const DiaryModal = () => {
   const navigate = useNavigate()
   const [text, setText] = useState('')
+  const [result, setResult] = useState(false)
   const [todayEmotion, setTodayEmotion] = useState<Emotion>({
     score: 0,
     magnitude: 0,
@@ -136,73 +137,86 @@ const DiaryModal = () => {
 
   async function setEmotion(score: number, magnitude: number) {
     const userScore = Math.round((score + 1) * 50)
-    const userMagnitude = Math.min(Math.round(magnitude * 20), 100)
+    const userMagnitude =  Math.min(Math.round((magnitude / 5) * 100), 100)
+
+    let emoData: Emotion
 
     switch (true) {
       case score >= -1.0 && score <= -0.75:
-        setTodayEmotion({
+        emoData = {
           score: userScore,
           magnitude: userMagnitude,
           color: '#4B3F72',
           dayCmnt: `밤이 길게 내려앉았어요.\n하지만 이 어둠도 곧 끝나요`,
           text: '[깊은 어둠]\n' + sadMsg[Math.floor(Math.random() * sadMsg.length)]
-        })
+        }
         break;
       case score > -0.75 && score <= -0.5 :
-        setTodayEmotion({
+        emoData = {
           score: userScore,
           magnitude: userMagnitude,
           color: '#517EA6',
           dayCmnt: `하늘이 흐려도,\n그 안엔 여전히 빛이 숨어있어요.`,
           text: '[잿빛 슬픔]\n' + depressMsg[Math.floor(Math.random() * depressMsg.length)]
-        })
+        }
         break;
       case score > -0.5 && score <= -0.25 :
-        setTodayEmotion({
+        emoData = {
           score: userScore,
           magnitude: userMagnitude,
           color: '#7BAACD',
           dayCmnt: `바람이 차지만,\n언젠가 이 구름도 걷히겠죠.`,
           text: '[흐린 마음]\n' + dullMsg[Math.floor(Math.random() * dullMsg.length)]
-        })
+        }
         break;
       case score > -0.25 && score <= 0.25 :
-        setTodayEmotion({
+        emoData = {
           score: userScore,
           magnitude: userMagnitude,
           color: '#A9D6C8',
           dayCmnt: `고요한 마음에 작은 파도가 일어요. \n그것도 괜찮아요.`,
           text: '[고요한 평온]\n' + calmMsg[Math.floor(Math.random() * calmMsg.length)]
-        })
+        }
         break;
       case score > 0.25 && score <= 0.5 :
-        setTodayEmotion({
+        emoData = {
           score: userScore,
           magnitude: userMagnitude,
           color:'#F3E99F',
           dayCmnt: `햇살이 스며드는 마음이에요. \n당신의 웃음이 참 고와요.`,
           text: '[맑은 미소]\n' + smileMsg[Math.floor(Math.random() * smileMsg.length)]
-        })
+        }
         break;
       case score > 0.5 && score <= 0.75 :
-        setTodayEmotion({
+        emoData = {
           score: userScore,
           magnitude: userMagnitude,
           color: '#FF9E80',
           dayCmnt: `마음이 콩닥거려요.\n오늘은 좋은 일이 올 것 같아요.`,
           text: '[밝은 설렘]\n' + brightMsg[Math.floor(Math.random() * brightMsg.length)]
-        })
+        }
         break;
       case score > 0.75 && score <= 1.0 :
-        setTodayEmotion({
+        emoData = {
           score: userScore,
           magnitude: userMagnitude,
           color: '#F9A1A0',
           dayCmnt: `모든 게 찬란해요.\n오늘은 당신의 빛이 세상을 물들여요.`,
           text: '[눈부신 행복]\n' + happyMsg[Math.floor(Math.random() * happyMsg.length)]
-        })
+        }
         break;
+      default:
+        emoData = {
+          score: userScore,
+          magnitude: userMagnitude,
+          color: '#CCCCCC',
+          dayCmnt: '감정을 인식하지 못했어요.',
+          text: '[중립 상태]'
+        }
     }
+
+    setTodayEmotion(emoData)
+    setResult(true)
   }
 
   /*
@@ -291,6 +305,7 @@ const DiaryModal = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             maxLength={1000}
+            disabled={result}
           />
           <div className="char-count">
             {text.length} / 1000자
